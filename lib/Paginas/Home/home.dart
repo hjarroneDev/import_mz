@@ -70,61 +70,7 @@ class _HomeScreanState extends State<HomeScrean> {
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(
-                    right: 20, left: 20, top: 5, bottom: 20),
-                child: SizedBox(
-                  child: TextField(
-                    minLines: 1,
-                    maxLines: 3,
-                    style: GoogleFonts.roboto(
-                      textStyle: TextStyle(
-                        fontSize: 18,
-                        color: Colors.redAccent.shade100,
-                      ),
-                    ),
-                    textAlign: TextAlign.start,
-                    textAlignVertical: TextAlignVertical.bottom,
-                    decoration: InputDecoration(
-                      hintText: 'Cole o Link ou Referencia',
-                      hintStyle: GoogleFonts.roboto(color: Colors.black26),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                      ),
-                      enabledBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.grey,
-                          width: 0.0,
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.teal.shade200,
-                          width: 2.0,
-                        ),
-                        borderRadius: BorderRadius.circular(5.0),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 35,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.teal.shade300,
-                  ),
-                  onPressed: () {},
-                  child: Text(
-                    'Calcular'.toUpperCase(),
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
+              
               const Custos(),
             ],
           ),
