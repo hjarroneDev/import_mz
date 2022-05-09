@@ -39,6 +39,7 @@ dependencies:
   html: ^0.15.0
   http: ^0.13.4
   chaleno: ^0.0.6
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:

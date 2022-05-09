@@ -4,6 +4,10 @@ import 'package:http/http.dart' as http;
 import 'package:html/dom.dart' as dom;
 import 'package:html/parser.dart' as parser;
 
+import 'widget/calculos.dart';
+import 'widget/getdata.dart';
+import 'widget/image.dart';
+
 class Custos extends StatefulWidget {
   const Custos({Key? key}) : super(key: key);
 
@@ -22,11 +26,13 @@ class _CustosState extends State<Custos> {
   late String tipo;
   late String fob;
   late String cif;
+  late String cambio;
 
   late String referencia;
   late String motorCc;
   late String combustivel;
   late String assentos;
+  late String portas;
   late String ano;
   late String peso;
 
@@ -45,16 +51,21 @@ class _CustosState extends State<Custos> {
     ano = '';
     peso = '';
     imageLink = '';
+    portas = '';
+    cambio = '';
 
     linkController.clear();
 
     super.initState();
   }
 
-  void getWebsiteData() async {
+  void getDesktopWebsiteData() async {
     if (linkController.text == '') {
       return;
     } else {
+      setState(() {
+        islodin = true;
+      });
       final url = Uri.parse(linkController.text);
       final response = await http.get(url);
       dom.Document document = parser.parse(response.body);
@@ -65,6 +76,9 @@ class _CustosState extends State<Custos> {
       // Fob
       final valfobs = document.getElementsByClassName('price ip-usd-price');
       final valfob = valfobs.map((item) => item.text);
+
+      //Cambio
+      final contraVal = document.getElementById('fn-ip-sh-price')?.innerHtml;
 
       // Cif
       final valcif =
@@ -116,8 +130,13 @@ class _CustosState extends State<Custos> {
 
       //Assentos
       final asstr =
-          elements.map((element) => element.getElementsByTagName('tr')[6]);
+          elements.map((element) => element.getElementsByTagName('tr')[5]);
       final asstd = asstr
+          .map((element) => element.getElementsByTagName('td')[1].innerHtml);
+
+      final porttr =
+          elements.map((element) => element.getElementsByTagName('tr')[6]);
+      final portd = porttr
           .map((element) => element.getElementsByTagName('td')[1].innerHtml);
 
       setState(
@@ -128,7 +147,11 @@ class _CustosState extends State<Custos> {
               .replaceAll(')', '')
               .substring(5);
           referencia = reftd.toString().replaceAll('(', '').replaceAll(')', '');
-          motorCc = mottd.toString().replaceAll('(', '').replaceAll(')', '');
+          motorCc = mottd
+              .toString()
+              .replaceAll('(', '')
+              .replaceAll(')', '')
+              .replaceAll('cc', '');
 
           peso = pesotd.toString().replaceAll('(', '').replaceAll(')', '');
           combustivel =
@@ -140,11 +163,18 @@ class _CustosState extends State<Custos> {
               .substring(0, 4);
 
           assentos = asstd.toString().replaceAll('(', '').replaceAll(')', '');
+          portas = portd.toString().replaceAll('(', '').replaceAll(')', '');
+
           fob = valfob
               .toString()
               .replaceAll('(', '')
               .replaceAll(')', '')
               .replaceAll(RegExp('[^A-Za-z0-9]'), '');
+
+          var cambioForm = int.parse(contraVal.toString().replaceAll(',', '')) /
+              int.parse(fob);
+
+          cambio = cambioForm.toString().substring(0, 5);
 
           var cifs = int.parse(valcif
                   .toString()
@@ -158,6 +188,7 @@ class _CustosState extends State<Custos> {
           imageLink = valimag.toString();
 
           islodin = false;
+          visivel = true;
         },
       );
     }
@@ -225,11 +256,28 @@ class _CustosState extends State<Custos> {
                 primary: Colors.teal.shade300,
               ),
               onPressed: () {
-                setState(() {
-                  islodin = true;
-                  visivel = true;
-                });
-                getWebsiteData();
+                if (linkController.text.length >= 24 &&
+                    linkController.text.substring(0, 24) ==
+                        'https://www.beforward.jp') {
+                  getDesktopWebsiteData();
+                } else if (linkController.text.length >= 23 &&
+                    linkController.text.substring(0, 23) ==
+                        'https://sp.beforward.jp') {
+                  setState(() {
+                    linkController.text =
+                        'Site ${linkController.text.substring(0, 23)} não Suportado';
+                  });
+                } else if (linkController.text.length >= 24 &&
+                    linkController.text.substring(0, 24) ==
+                        'https://www.sbtjapan.com') {
+                  setState(() {
+                    linkController.text =
+                        'Site ${linkController.text.substring(0, 24)} não Suportado';
+                  });
+                } else {
+                  linkController.text =
+                      'Site "${linkController.text}" não Suportado';
+                }
               },
               child: Text(
                 'Calcular'.toUpperCase(),
@@ -256,24 +304,8 @@ class _CustosState extends State<Custos> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 20),
-                  child: Container(
-                    alignment: Alignment.center,
-                    child: Container(
-                      width: 460.0,
-                      height: 300.0,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30.0),
-                        image: DecorationImage(
-                          image: NetworkImage(
-                            'https:$imageLink',
-                          ),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                  ),
+                ImageView(
+                  imageLink: imageLink,
                 ),
                 const SizedBox(
                   width: 50,
@@ -296,479 +328,41 @@ class _CustosState extends State<Custos> {
                     const SizedBox(
                       height: 15,
                     ),
-                    Row(
-                      children: [
-                        Visibility(
-                          visible: visivel,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
-                              Text(
-                                'FOB USD................',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.black54,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 3,
-                              ),
-                              Text(
-                                'CIF USD..................',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.black54,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 3,
-                              ),
-                              Text(
-                                'Tipo de Veículo....',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.black54,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 3,
-                              ),
-                              Text(
-                                'Ano de Fabrico.....',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.black54,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 3,
-                              ),
-                              Text(
-                                'Cc do Motor..........',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.black54,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 3,
-                              ),
-                              Text(
-                                'Combustivel..........',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.black54,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 3,
-                              ),
-                              Text(
-                                'Assentos................',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.black54,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 3,
-                              ),
-                              Text(
-                                'Peso........................',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.black54,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 3,
-                              ),
-                              Text(
-                                'Referência.............',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.black54,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 25,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              fob,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                                color: Colors.black54,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 3,
-                            ),
-                            Text(
-                              cif,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                                color: Colors.black54,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 3,
-                            ),
-                            Text(
-                              tipo,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                                color: Colors.black54,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 3,
-                            ),
-                            Text(
-                              ano,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                                color: Colors.black54,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 3,
-                            ),
-                            Text(
-                              motorCc,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                                color: Colors.black54,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 3,
-                            ),
-                            Text(
-                              combustivel,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                                color: Colors.black54,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 3,
-                            ),
-                            Text(
-                              assentos,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                                color: Colors.black54,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 3,
-                            ),
-                            Text(
-                              peso,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                                color: Colors.black54,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 3,
-                            ),
-                            Text(
-                              referencia,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                                color: Colors.black54,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
+                    Visibility(
+                      visible: visivel,
+                      child: GetData(
+                        ano: ano,
+                        assentos: assentos,
+                        carname: carname,
+                        cif: cif,
+                        combustivel: combustivel,
+                        fob: fob,
+                        motorCc: motorCc,
+                        peso: peso,
+                        portas: portas,
+                        referencia: referencia,
+                        tipo: tipo,
+                        
+                      ),
                     ),
                   ],
                 ),
+                const SizedBox(
+                  width: 15,
+                ),
                 Visibility(
                   visible: visivel,
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 45),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(
-                          width: 300,
-                          child: Text(
-                            'Custos de Importacao',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                              color: Colors.black54,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        Row(
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: const [
-                                Text(
-                                  'Compra e Transporte........................',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.black54,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 3,
-                                ),
-                                Text(
-                                  'Direitos Aduaneiros..........................',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.black54,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 3,
-                                ),
-                                Text(
-                                  'Imposto de Consumo Especifico....',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.black54,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 3,
-                                ),
-                                Text(
-                                  'Imposto de valor Acrescentado.....',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.black54,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 3,
-                                ),
-                                Text(
-                                  'Taxa de Serviço Aduaneiro..............',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.black54,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 3,
-                                ),
-                                Text(
-                                  'Serviço Mcnet....................................',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.black54,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 3,
-                                ),
-                                Text(
-                                  'INATTER..............................................',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.black54,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 3,
-                                ),
-                                Text(
-                                  'Maputo Car.........................................',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.black54,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 3,
-                                ),
-                                Text(
-                                  'Kudumba.............................................',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.black54,
-                                  ),
-                                ),
-                                Text(
-                                  'Ordem de Entrega.............................',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.black54,
-                                  ),
-                                ),
-                                Divider(
-                                  color: Colors.black54,
-                                  height: 5,
-                                ),
-                                Text(
-                                  'Total.............................',
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      color: Colors.black54,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              width: 25,
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  fob,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16,
-                                    color: Colors.black54,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 3,
-                                ),
-                                Text(
-                                  cif,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16,
-                                    color: Colors.black54,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 3,
-                                ),
-                                Text(
-                                  tipo,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16,
-                                    color: Colors.black54,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 3,
-                                ),
-                                Text(
-                                  ano,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16,
-                                    color: Colors.black54,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 3,
-                                ),
-                                Text(
-                                  motorCc,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16,
-                                    color: Colors.black54,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 3,
-                                ),
-                                Text(
-                                  combustivel,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16,
-                                    color: Colors.black54,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 3,
-                                ),
-                                Text(
-                                  assentos,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16,
-                                    color: Colors.black54,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 3,
-                                ),
-                                Text(
-                                  peso,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16,
-                                    color: Colors.black54,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 3,
-                                ),
-                                Text(
-                                  referencia,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16,
-                                    color: Colors.black54,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 3,
-                                ),
-                                Text(
-                                  referencia,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16,
-                                    color: Colors.black54,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 3,
-                                ),
-                                const Divider(
-                                    color: Colors.black54,
-                                    height: 5,
-                                  ),
-                                Text(
-                                  referencia,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16,
-                                    color: Colors.black54,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                  child: CalculosPage(
+                    ano: ano,
+                    assentos: assentos,
+                    cif: cif,
+                    combustivel: combustivel,
+                    fob: fob,
+                    motorCc: motorCc,
+                    peso: peso,
+                    portas: portas,
+                    tipo: tipo,
+                    cambio: cambio,
                   ),
                 ),
               ],
