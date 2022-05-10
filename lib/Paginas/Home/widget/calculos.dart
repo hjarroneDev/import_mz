@@ -32,35 +32,60 @@ class CalculosPage extends StatefulWidget {
 }
 
 class _CalculosPageState extends State<CalculosPage> {
-//Formatador
-  final formatarMoeda = NumberFormat("#,##0.00", "en_US");
-   String? valCIF;
-
-
-//Calculo de MCnet
+  //*Variaveis
+  String? valCIF;
+  String? valKudumba;
   String? valMCnet;
-  void mcNet() {
-    if (int.parse(widget.fob) < 500) {
-      valMCnet = formatarMoeda.format(double.parse(widget.cambio) * 5);
-    } else if (int.parse(widget.fob) >= 500 && int.parse(widget.fob) <= 10000) {
-      valMCnet = formatarMoeda.format(double.parse(widget.cambio) * 24);
-    }
-    else if (int.parse(widget.fob) > 10000 && int.parse(widget.fob) <= 50000) {
-      valMCnet = formatarMoeda.format(double.parse(widget.cambio) * 64);
-    }else{
-      valMCnet = formatarMoeda.format(double.parse(widget.cambio) * double.parse(widget.fob)*0.0085);
-    }
-    
-  }
+  String? valMptCar;
+  String? valOrdemEntrega;
 
- 
+  void calInicial() {
+    //*Formatador
+    final formatarMoeda = NumberFormat("#,##0.00", "en_US");
 
-  @override
-  void initState() {
+    //*CIF
     valCIF = formatarMoeda
         .format(double.parse(widget.cif) * double.parse(widget.cambio));
 
-    mcNet();
+    //*Kudumba
+    valKudumba = formatarMoeda.format(double.parse(widget.cambio) * 35 * 1.17);
+
+    //*MCnet
+    if (double.parse(widget.fob) < 500) {
+      valMCnet = formatarMoeda.format(double.parse(widget.cambio) * 5);
+    } else if (double.parse(widget.fob) >= 500 && double.parse(widget.fob) <= 10000) {
+      valMCnet = formatarMoeda.format(double.parse(widget.cambio) * 24);
+    } else if (double.parse(widget.fob) > 10000 &&
+        double.parse(widget.fob) <= 50000) {
+      valMCnet = formatarMoeda.format(double.parse(widget.cambio) * 64);
+    } else {
+      valMCnet = formatarMoeda.format(
+          double.parse(widget.cambio) * double.parse(widget.fob) * 0.0085);
+    }
+
+    //*Maputo Car
+    if (double.parse(widget.peso) <= 3500) {
+      valMptCar = formatarMoeda.format(14385 * 1.17);
+    }else if (double.parse(widget.peso) > 3500 && double.parse(widget.peso) <= 8500) {
+      valMptCar = formatarMoeda.format(32060 * 1.17);
+    }else if (double.parse(widget.peso) > 8500 && double.parse(widget.peso) <= 20000) {
+      valMptCar = formatarMoeda.format(44470 * 1.17);
+    }
+    else if (double.parse(widget.peso) > 20000 && double.parse(widget.peso) <= 33000) {
+      valMptCar = formatarMoeda.format(48701 * 1.17);
+    }else {
+      valMptCar = formatarMoeda.format(((((double.parse(widget.peso) - 33000)/1000)*1410)+ 48701)*1.17);
+    }
+
+    //*Ordem de Entrega
+
+    valOrdemEntrega = formatarMoeda.format(69*117);
+    
+  }
+
+  @override
+  void initState() {
+    calInicial();
     super.initState();
   }
 
@@ -239,7 +264,7 @@ class _CalculosPageState extends State<CalculosPage> {
                   ),
                   const Text(
                     '-',
-                    style:  TextStyle(
+                    style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
                       color: Colors.black54,
@@ -250,7 +275,7 @@ class _CalculosPageState extends State<CalculosPage> {
                   ),
                   const Text(
                     '750 Mt',
-                    style:  TextStyle(
+                    style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
                       color: Colors.black54,
@@ -282,7 +307,7 @@ class _CalculosPageState extends State<CalculosPage> {
                     height: 3,
                   ),
                   Text(
-                    widget.peso,
+                    '${valMptCar!} Mt',
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
@@ -293,7 +318,7 @@ class _CalculosPageState extends State<CalculosPage> {
                     height: 3,
                   ),
                   Text(
-                    widget.peso,
+                    '${valKudumba!} Mt',
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
@@ -304,7 +329,7 @@ class _CalculosPageState extends State<CalculosPage> {
                     height: 3,
                   ),
                   Text(
-                    widget.peso,
+                    '${valOrdemEntrega!} Mt',
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16,

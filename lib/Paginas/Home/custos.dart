@@ -60,138 +60,133 @@ class _CustosState extends State<Custos> {
   }
 
   void getDesktopWebsiteData() async {
-    if (linkController.text == '') {
-      return;
-    } else {
-      setState(() {
-        islodin = true;
-      });
-      final url = Uri.parse(linkController.text);
-      final response = await http.get(url);
-      dom.Document document = parser.parse(response.body);
+    setState(() {
+      islodin = true;
+    });
+    final url = Uri.parse(linkController.text);
+    final response = await http.get(url);
+    dom.Document document = parser.parse(response.body);
 
-      // Image
-      final valimag = document.getElementById('mainImage')?.attributes['src'];
+    // Image
+    final valimag = document.getElementById('mainImage')?.attributes['src'];
 
-      // Fob
-      final valfobs = document.getElementsByClassName('price ip-usd-price');
-      final valfob = valfobs.map((item) => item.text);
+    // Fob
+    final valfobs = document.getElementsByClassName('price ip-usd-price');
+    final valfob = valfobs.map((item) => item.text);
 
-      //Cambio
-      final contraVal = document.getElementById('fn-ip-sh-price')?.innerHtml;
+    //Cambio
+    final contraVal = document.getElementById('fn-ip-sh-price')?.innerHtml;
 
-      // Cif
-      final valcif =
-          document.getElementById('fn-vehicle-price-total-price')?.innerHtml;
+    // Cif
+    final valcif =
+        document.getElementById('fn-vehicle-price-total-price')?.innerHtml;
 
-      // Tipo
-      final valtipo =
-          document.querySelector('#bread > li:nth-child(5) > a')?.text;
+    // Tipo
+    final valtipo =
+        document.querySelector('#bread > li:nth-child(5) > a')?.text;
 
-      ///Notas
-      final names = document.getElementsByClassName('car-info-flex-box');
+    ///Notas
+    final names = document.getElementsByClassName('car-info-flex-box');
 
-      //Referencia
-      final nameh1 = names
-          .map((element) => element.getElementsByTagName('h1')[0].innerHtml);
+    //Referencia
+    final nameh1 =
+        names.map((element) => element.getElementsByTagName('h1')[0].innerHtml);
 
-      ///Notas
-      final elements = document.getElementsByClassName('specification');
+    ///Notas
+    final elements = document.getElementsByClassName('specification');
 
-      //Referencia
-      final reftr =
-          elements.map((element) => element.getElementsByTagName('tr')[0]);
-      final reftd = reftr
-          .map((element) => element.getElementsByTagName('td')[0].innerHtml);
+    //Referencia
+    final reftr =
+        elements.map((element) => element.getElementsByTagName('tr')[0]);
+    final reftd =
+        reftr.map((element) => element.getElementsByTagName('td')[0].innerHtml);
 
-      //Motor
-      final mottr =
-          elements.map((element) => element.getElementsByTagName('tr')[3]);
-      final mottd = mottr
-          .map((element) => element.getElementsByTagName('td')[0].innerHtml);
+    //Motor
+    final mottr =
+        elements.map((element) => element.getElementsByTagName('tr')[3]);
+    final mottd =
+        mottr.map((element) => element.getElementsByTagName('td')[0].innerHtml);
 
-      //Ano
-      final anotr =
-          elements.map((element) => element.getElementsByTagName('tr')[8]);
-      final anotd = anotr
-          .map((element) => element.getElementsByTagName('td')[0].innerHtml);
+    //Ano
+    final anotr =
+        elements.map((element) => element.getElementsByTagName('tr')[8]);
+    final anotd =
+        anotr.map((element) => element.getElementsByTagName('td')[0].innerHtml);
 
-      //Peso
-      final pesotr =
-          elements.map((element) => element.getElementsByTagName('tr')[9]);
-      final pesotd = pesotr
-          .map((element) => element.getElementsByTagName('td')[1].innerHtml);
+    //Peso
+    final pesotr =
+        elements.map((element) => element.getElementsByTagName('tr')[9]);
+    final pesotd = pesotr
+        .map((element) => element.getElementsByTagName('td')[1].innerHtml);
 
-      //Combustivel
-      final combtr =
-          elements.map((element) => element.getElementsByTagName('tr')[4]);
-      final combtd = combtr
-          .map((element) => element.getElementsByTagName('td')[1].innerHtml);
+    //Combustivel
+    final combtr =
+        elements.map((element) => element.getElementsByTagName('tr')[4]);
+    final combtd = combtr
+        .map((element) => element.getElementsByTagName('td')[1].innerHtml);
 
-      //Assentos
-      final asstr =
-          elements.map((element) => element.getElementsByTagName('tr')[5]);
-      final asstd = asstr
-          .map((element) => element.getElementsByTagName('td')[1].innerHtml);
+    //Assentos
+    final asstr =
+        elements.map((element) => element.getElementsByTagName('tr')[5]);
+    final asstd =
+        asstr.map((element) => element.getElementsByTagName('td')[1].innerHtml);
 
-      final porttr =
-          elements.map((element) => element.getElementsByTagName('tr')[6]);
-      final portd = porttr
-          .map((element) => element.getElementsByTagName('td')[1].innerHtml);
+    final porttr =
+        elements.map((element) => element.getElementsByTagName('tr')[6]);
+    final portd = porttr
+        .map((element) => element.getElementsByTagName('td')[1].innerHtml);
 
-      setState(
-        () {
-          carname = nameh1
-              .toString()
-              .replaceAll('(', '')
-              .replaceAll(')', '')
-              .substring(5);
-          referencia = reftd.toString().replaceAll('(', '').replaceAll(')', '');
-          motorCc = mottd
-              .toString()
-              .replaceAll('(', '')
-              .replaceAll(')', '')
-              .replaceAll('cc', '');
+    setState(
+      () {
+        carname = nameh1
+            .toString()
+            .replaceAll('(', '')
+            .replaceAll(')', '')
+            .substring(5);
+        referencia = reftd.toString().replaceAll('(', '').replaceAll(')', '');
+        motorCc = mottd
+            .toString()
+            .replaceAll('(', '')
+            .replaceAll(')', '')
+            .replaceAll('cc', '');
 
-          peso = pesotd.toString().replaceAll('(', '').replaceAll(')', '');
-          combustivel =
-              combtd.toString().replaceAll('(', '').replaceAll(')', '');
-          ano = anotd
-              .toString()
-              .replaceAll('(', '')
-              .replaceAll(')', '')
-              .substring(0, 4);
+        peso = pesotd.toString().replaceAll('(', '').replaceAll(')', '').replaceAll(',', '').replaceAll('kg', '');
+        combustivel = combtd.toString().replaceAll('(', '').replaceAll(')', '');
+        ano = anotd
+            .toString()
+            .replaceAll('(', '')
+            .replaceAll(')', '')
+            .substring(0, 4);
 
-          assentos = asstd.toString().replaceAll('(', '').replaceAll(')', '');
-          portas = portd.toString().replaceAll('(', '').replaceAll(')', '');
+        assentos = asstd.toString().replaceAll('(', '').replaceAll(')', '');
+        portas = portd.toString().replaceAll('(', '').replaceAll(')', '');
 
-          fob = valfob
-              .toString()
-              .replaceAll('(', '')
-              .replaceAll(')', '')
-              .replaceAll(RegExp('[^A-Za-z0-9]'), '');
+        fob = valfob
+            .toString()
+            .replaceAll('(', '')
+            .replaceAll(')', '')
+            .replaceAll(RegExp('[^A-Za-z0-9]'), '');
 
-          var cambioForm = int.parse(contraVal.toString().replaceAll(',', '')) /
-              int.parse(fob);
+        var cambioForm = int.parse(contraVal.toString().replaceAll(',', '')) /
+            int.parse(fob);
 
-          cambio = cambioForm.toString().substring(0, 5);
+        cambio = cambioForm.toString().substring(0, 5);
 
-          var cifs = int.parse(valcif
-                  .toString()
-                  .replaceAll('(', '')
-                  .replaceAll(')', '')
-                  .replaceAll(RegExp('[^A-Za-z0-9]'), '')) +
-              160;
+        var cifs = int.parse(valcif
+                .toString()
+                .replaceAll('(', '')
+                .replaceAll(')', '')
+                .replaceAll(RegExp('[^A-Za-z0-9]'), '')) +
+            160;
 
-          cif = cifs.toString();
-          tipo = valtipo.toString();
-          imageLink = valimag.toString();
+        cif = cifs.toString();
+        tipo = valtipo.toString();
+        imageLink = valimag.toString();
 
-          islodin = false;
-          visivel = true;
-        },
-      );
-    }
+        islodin = false;
+        visivel = true;
+      },
+    );
   }
 
   @override
@@ -256,7 +251,9 @@ class _CustosState extends State<Custos> {
                 primary: Colors.teal.shade300,
               ),
               onPressed: () {
-                if (linkController.text.length >= 24 &&
+                if (linkController.text == '' || linkController.text == 'Necessario link da viatura') {
+                  linkController.text = 'Necessario link da viatura';
+                } else if (linkController.text.length >= 24 &&
                     linkController.text.substring(0, 24) ==
                         'https://www.beforward.jp') {
                   getDesktopWebsiteData();
@@ -274,7 +271,7 @@ class _CustosState extends State<Custos> {
                     linkController.text =
                         'Site ${linkController.text.substring(0, 24)} não Suportado';
                   });
-                } else {
+                } else if(linkController.text == 'Site "${linkController.text}" não Suportado'){
                   linkController.text =
                       'Site "${linkController.text}" não Suportado';
                 }
@@ -342,7 +339,6 @@ class _CustosState extends State<Custos> {
                         portas: portas,
                         referencia: referencia,
                         tipo: tipo,
-                        
                       ),
                     ),
                   ],

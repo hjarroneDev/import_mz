@@ -115,7 +115,7 @@ class _GetDataState extends State<GetData> {
               height: 3,
             ),
             Text(
-              'Peso........................',
+              'Peso Kg.....................',
               style: TextStyle(
                 fontSize: 16,
                 color: Colors.black54,
