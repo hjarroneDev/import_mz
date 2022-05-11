@@ -53,9 +53,7 @@ class _CustosState extends State<Custos> {
     imageLink = '';
     portas = '';
     cambio = '';
-
     linkController.clear();
-
     super.initState();
   }
 
@@ -274,6 +272,10 @@ class _CustosState extends State<Custos> {
                 } else if(linkController.text == 'Site "${linkController.text}" não Suportado'){
                   linkController.text =
                       'Site "${linkController.text}" não Suportado';
+                }
+                else{
+                  linkController.clear();
+                  linkController.text = 'Necessario link da viatura';
                 }
               },
               child: Text(
