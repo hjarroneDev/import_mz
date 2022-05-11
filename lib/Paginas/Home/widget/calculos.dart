@@ -78,7 +78,6 @@ class _CalculosPageState extends State<CalculosPage> {
     }
 
     //*Ordem de Entrega
-
     valOrdemEntrega = formatarMoeda.format(69*117);
     
   }

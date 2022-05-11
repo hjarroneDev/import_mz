@@ -212,7 +212,7 @@ class _CustosState extends State<Custos> {
                 textAlign: TextAlign.start,
                 textAlignVertical: TextAlignVertical.bottom,
                 decoration: InputDecoration(
-                  hintText: 'Cole o Link ou Referencia',
+                  hintText: 'Colar Link ou Referencia',
                   hintStyle: GoogleFonts.roboto(color: Colors.black26),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0),
