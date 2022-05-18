@@ -38,48 +38,142 @@ class _CalculosPageState extends State<CalculosPage> {
   String? valMCnet;
   String? valMptCar;
   String? valOrdemEntrega;
+  String? valInatter;
+  String? valDireitos;
+  String? valIce;
+  String? valIva;
+  String? valTotal;
+  String? valTsa;
 
   void calInicial() {
     //*Formatador
     final formatarMoeda = NumberFormat("#,##0.00", "en_US");
 
     //*CIF
-    valCIF = formatarMoeda
-        .format(double.parse(widget.cif) * double.parse(widget.cambio));
+    double calCifMetical =
+        double.parse(widget.cif) * double.parse(widget.cambio);
+    valCIF = formatarMoeda.format(calCifMetical);
+
+    //*Direitos
+    double calDireito = calCifMetical * 0.10;
+    valDireitos = formatarMoeda.format(calDireito);
+
+    //*ICE
+    double calIce = (calCifMetical + calDireito) * 0.35;
+    valIce = formatarMoeda.format(calIce);
+
+    //*IVA
+    double calIva = (calCifMetical + calDireito + calIce) * 0.17;
+    valIva = formatarMoeda.format(calIva);
 
     //*Kudumba
-    valKudumba = formatarMoeda.format(double.parse(widget.cambio) * 35 * 1.17);
+    double calKudumba = double.parse(widget.cambio) * 35 * 1.17;
+    valKudumba = formatarMoeda.format(calKudumba);
 
     //*MCnet
+    double? calMCnet;
     if (double.parse(widget.fob) < 500) {
-      valMCnet = formatarMoeda.format(double.parse(widget.cambio) * 5);
-    } else if (double.parse(widget.fob) >= 500 && double.parse(widget.fob) <= 10000) {
-      valMCnet = formatarMoeda.format(double.parse(widget.cambio) * 24);
+      calMCnet = double.parse(widget.cambio) * 5;
+    } else if (double.parse(widget.fob) >= 500 &&
+        double.parse(widget.fob) <= 10000) {
+      calMCnet = double.parse(widget.cambio) * 24;
     } else if (double.parse(widget.fob) > 10000 &&
         double.parse(widget.fob) <= 50000) {
-      valMCnet = formatarMoeda.format(double.parse(widget.cambio) * 64);
+      calMCnet = double.parse(widget.cambio) * 64;
     } else {
-      valMCnet = formatarMoeda.format(
-          double.parse(widget.cambio) * double.parse(widget.fob) * 0.0085);
+      calMCnet =
+          double.parse(widget.cambio) * double.parse(widget.fob) * 0.0085;
     }
+    valMCnet = formatarMoeda.format(calMCnet);
 
     //*Maputo Car
-    if (double.parse(widget.peso) <= 3500) {
-      valMptCar = formatarMoeda.format(14385 * 1.17);
-    }else if (double.parse(widget.peso) > 3500 && double.parse(widget.peso) <= 8500) {
-      valMptCar = formatarMoeda.format(32060 * 1.17);
-    }else if (double.parse(widget.peso) > 8500 && double.parse(widget.peso) <= 20000) {
-      valMptCar = formatarMoeda.format(44470 * 1.17);
+    double? calMptCar;
+    if (widget.peso == '-') {
+      if (widget.tipo == 'SUV' ||
+          widget.tipo == 'Pick up' ||
+          widget.tipo == 'Van' ||
+          widget.tipo == 'Sedan' ||
+          widget.tipo == 'Mini Van' ||
+          widget.tipo == 'Hatchback' ||
+          widget.tipo == 'Coupe' ||
+          widget.tipo == 'Convertible' ||
+          widget.tipo == 'Wagon' ||
+          widget.tipo == 'Mini Bus') {
+        calMptCar = 14385 * 1.17;
+      } else if (widget.tipo == 'Truck' || widget.tipo == 'Bus') {
+        calMptCar = 32060 * 1.17;
+      } else {
+        calMptCar = null;
+      }
+    } else {
+      if (double.parse(widget.peso) <= 3500) {
+        calMptCar = 14385 * 1.17;
+      } else if (double.parse(widget.peso) > 3500 &&
+          double.parse(widget.peso) <= 8500) {
+        calMptCar = 32060 * 1.17;
+      } else if (double.parse(widget.peso) > 8500 &&
+          double.parse(widget.peso) <= 20000) {
+        calMptCar = 44470 * 1.17;
+      } else if (double.parse(widget.peso) > 20000 &&
+          double.parse(widget.peso) <= 33000) {
+        calMptCar = 48701 * 1.17;
+      } else {
+        calMptCar =
+            ((((double.parse(widget.peso) - 33000) / 1000) * 1410) + 48701) *
+                1.17;
+      }
     }
-    else if (double.parse(widget.peso) > 20000 && double.parse(widget.peso) <= 33000) {
-      valMptCar = formatarMoeda.format(48701 * 1.17);
-    }else {
-      valMptCar = formatarMoeda.format(((((double.parse(widget.peso) - 33000)/1000)*1410)+ 48701)*1.17);
+    valMptCar = formatarMoeda.format((calMptCar == null) ? '-' : calMptCar);
+
+    //*INATTER
+    //~ Variaveis
+    double isPesado = 6680 + 3900 + 1850;
+    double isLigeiro = 6680 + 2980 + 1850;
+    double? calInatter;
+    if (widget.peso == '-') {
+      if (widget.tipo == 'Truck' ||
+          widget.tipo == 'Machinery' ||
+          widget.tipo == 'Tractor' ||
+          widget.tipo == 'Tractor') {
+        calInatter = isPesado;
+      } else {
+        if (double.parse(widget.assentos) <= 7) {
+          calInatter = isLigeiro;
+        } else {
+          calInatter = isPesado;
+        }
+      }
+    } else {
+      if (double.parse(widget.peso) <= 3500 &&
+          double.parse(widget.assentos) <= 7) {
+        calInatter = isLigeiro;
+      } else {
+        calInatter = isPesado;
+      }
     }
+    valInatter = formatarMoeda.format(calInatter);
 
     //*Ordem de Entrega
-    valOrdemEntrega = formatarMoeda.format(69*117);
-    
+    double calOrdemEntrega = 70 * 117;
+    valOrdemEntrega = formatarMoeda.format(calOrdemEntrega);
+
+    //*TSA
+    double calTsa = 750;
+    valTsa = formatarMoeda.format(calTsa);
+
+    //*Total
+    double calTotal = calCifMetical +
+        calDireito +
+        calIce +
+        calIva +
+        calKudumba +
+        calMCnet +
+        calOrdemEntrega +
+        calInatter +
+        calTsa;
+
+    valTotal = formatarMoeda
+        .format((calMptCar == null) ? 0 + calTotal : calMptCar + calTotal);
   }
 
   @override
@@ -240,7 +334,7 @@ class _CalculosPageState extends State<CalculosPage> {
                     height: 3,
                   ),
                   Text(
-                    widget.cif,
+                    '${valDireitos!} Mt',
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
@@ -251,7 +345,7 @@ class _CalculosPageState extends State<CalculosPage> {
                     height: 3,
                   ),
                   Text(
-                    widget.tipo,
+                    '${valIce!} Mt',
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
@@ -261,9 +355,9 @@ class _CalculosPageState extends State<CalculosPage> {
                   const SizedBox(
                     height: 3,
                   ),
-                  const Text(
-                    '-',
-                    style: TextStyle(
+                  Text(
+                    '${valIva!} Mt',
+                    style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
                       color: Colors.black54,
@@ -272,9 +366,9 @@ class _CalculosPageState extends State<CalculosPage> {
                   const SizedBox(
                     height: 3,
                   ),
-                  const Text(
-                    '750 Mt',
-                    style: TextStyle(
+                  Text(
+                    '${valTsa!} Mt',
+                    style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
                       color: Colors.black54,
@@ -295,7 +389,7 @@ class _CalculosPageState extends State<CalculosPage> {
                     height: 3,
                   ),
                   Text(
-                    widget.assentos,
+                    (valInatter == '-') ? valInatter! : '${valInatter!} Mt',
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
@@ -306,7 +400,7 @@ class _CalculosPageState extends State<CalculosPage> {
                     height: 3,
                   ),
                   Text(
-                    '${valMptCar!} Mt',
+                    (valMptCar == '-') ? valMptCar! : '${valMptCar!} Mt',
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
@@ -343,10 +437,10 @@ class _CalculosPageState extends State<CalculosPage> {
                     height: 5,
                   ),
                   Text(
-                    widget.peso,
+                    '${valTotal!} Mt',
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 16,
+                      fontSize: 18,
                       color: Colors.black54,
                     ),
                   ),

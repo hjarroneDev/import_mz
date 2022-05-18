@@ -248,7 +248,7 @@ class _CustosState extends State<Custos> {
               style: ElevatedButton.styleFrom(
                 primary: Colors.teal.shade300,
               ),
-              onPressed: () {
+              onPressed: () async {
                 if (linkController.text == '' || linkController.text == 'Necessario link da viatura') {
                   linkController.text = 'Necessario link da viatura';
                 } else if (linkController.text.length >= 24 &&
