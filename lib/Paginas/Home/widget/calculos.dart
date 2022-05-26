@@ -46,6 +46,10 @@ class _CalculosPageState extends State<CalculosPage> {
   String? valTsa;
 
   void calInicial() {
+    double? calDireito;
+    double? calIce;
+    double? calIva;
+
     //*Formatador
     final formatarMoeda = NumberFormat("#,##0.00", "en_US");
 
@@ -54,17 +58,94 @@ class _CalculosPageState extends State<CalculosPage> {
         double.parse(widget.cif) * double.parse(widget.cambio);
     valCIF = formatarMoeda.format(calCifMetical);
 
-    //*Direitos
-    double calDireito = calCifMetical * 0.10;
-    valDireitos = formatarMoeda.format(calDireito);
+    //~Condicao 2
+    //*Assentos Menor que 10
+    void isMenorque10() {
 
-    //*ICE
-    double calIce = (calCifMetical + calDireito) * 0.35;
-    valIce = formatarMoeda.format(calIce);
 
-    //*IVA
-    double calIva = (calCifMetical + calDireito + calIce) * 0.17;
-    valIva = formatarMoeda.format(calIva);
+    }
+
+    //*Assentos Maior ou Igaual a 10
+    void isIgualeMaior10() {
+      if (widget.combustivel == 'Diesel') {
+
+        //*Direitos
+        calDireito = calCifMetical * 0.05;
+        valDireitos = formatarMoeda.format(calDireito);
+
+        //*ICE
+        calIce = (calCifMetical + calDireito!) * 0;
+        valIce = formatarMoeda.format(calIce);
+
+        //*IVA
+        calIva = (calCifMetical + calDireito! + calIce!) * 0.17;
+        valIva = formatarMoeda.format(calIva);
+      }
+      if (widget.combustivel == 'Hybrid(Diesel)') {
+
+        //*Direitos
+        calDireito = calCifMetical * 0.05;
+        valDireitos = formatarMoeda.format(calDireito);
+
+        //*ICE
+        calIce = (calCifMetical + calDireito!) * 0;
+        valIce = formatarMoeda.format(calIce);
+
+        //*IVA
+        calIva = (calCifMetical + calDireito! + calIce!) * 0.17;
+        valIva = formatarMoeda.format(calIva);
+      }
+      if (widget.combustivel == 'Hybrid(Petrol)' || widget.combustivel == 'Hybrid(Petrol)') {
+
+        //*Direitos
+        calDireito = calCifMetical * 0.20;
+        valDireitos = formatarMoeda.format(calDireito);
+
+        //*ICE
+        calIce = (calCifMetical + calDireito!) * 0.30;
+        valIce = formatarMoeda.format(calIce);
+
+        //*IVA
+        calIva = (calCifMetical + calDireito! + calIce!) * 0.17;
+        valIva = formatarMoeda.format(calIva);
+      }
+      if (widget.combustivel == 'Eléctrico') {
+
+        //*Direitos
+        calDireito = calCifMetical * 0.20;
+        valDireitos = formatarMoeda.format(calDireito);
+
+        //*ICE
+        calIce = (calCifMetical + calDireito!) * 0;
+        valIce = formatarMoeda.format(calIce);
+
+        //*IVA
+        calIva = (calCifMetical + calDireito! + calIce!) * 0.17;
+        valIva = formatarMoeda.format(calIva);
+      }
+      if (widget.combustivel == 'Eléctrico') {
+
+        //*Direitos
+        calDireito = calCifMetical * 0.20;
+        valDireitos = formatarMoeda.format(calDireito);
+
+        //*ICE
+        calIce = (calCifMetical + calDireito!) * 0;
+        valIce = formatarMoeda.format(calIce);
+
+        //*IVA
+        calIva = (calCifMetical + calDireito! + calIce!) * 0.17;
+        valIva = formatarMoeda.format(calIva);
+      }
+    }
+
+//~Condicao 1
+
+    if (double.parse(widget.assentos) < 10) {
+      isMenorque10();
+    } else {
+      isIgualeMaior10();
+    }
 
     //*Kudumba
     double calKudumba = double.parse(widget.cambio) * 35 * 1.17;
@@ -163,9 +244,9 @@ class _CalculosPageState extends State<CalculosPage> {
 
     //*Total
     double calTotal = calCifMetical +
-        calDireito +
-        calIce +
-        calIva +
+        calDireito! +
+        calIce! +
+        calIva! +
         calKudumba +
         calMCnet +
         calOrdemEntrega +
