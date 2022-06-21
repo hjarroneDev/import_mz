@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:html/dom.dart' as dom;
 import 'package:html/parser.dart' as parser;
 
-import 'widget/calculos.dart';
+import 'widget/calculos/calculos.dart';
 import 'widget/getdata.dart';
 import 'widget/image.dart';
 
@@ -162,7 +162,7 @@ class _CustosState extends State<Custos> {
             .replaceAll(')', '')
             .substring(0, 4);
 
-        assentos = asstd.toString().replaceAll('(', '').replaceAll(')', '');
+        assentos = asstd.toString().replaceAll('(', '').replaceAll(')', '').substring(0, 1);
         portas = portd.toString().replaceAll('(', '').replaceAll(')', '');
 
         fob = valfob
