@@ -142,13 +142,19 @@ class _CustosState extends State<Custos> {
             .replaceAll(')', '')
             .substring(5);
         referencia = reftd.toString().replaceAll('(', '').replaceAll(')', '');
+
         motorCc = mottd
             .toString()
             .replaceAll('(', '')
             .replaceAll(')', '')
             .replaceAll('cc', '');
 
-        peso = pesotd.toString().replaceAll('(', '').replaceAll(')', '').replaceAll(',', '').replaceAll('kg', '');
+        peso = pesotd
+            .toString()
+            .replaceAll('(', '')
+            .replaceAll(')', '')
+            .replaceAll(',', '')
+            .replaceAll('kg', '');
         combustivel = combtd.toString().replaceAll('(', '').replaceAll(')', '');
         ano = anotd
             .toString()
@@ -249,7 +255,8 @@ class _CustosState extends State<Custos> {
                 primary: Colors.teal.shade300,
               ),
               onPressed: () async {
-                if (linkController.text == '' || linkController.text == 'Necessario link da viatura') {
+                if (linkController.text == '' ||
+                    linkController.text == 'Necessario link da viatura') {
                   linkController.text = 'Necessario link da viatura';
                 } else if (linkController.text.length >= 24 &&
                     linkController.text.substring(0, 24) ==
@@ -269,11 +276,11 @@ class _CustosState extends State<Custos> {
                     linkController.text =
                         'Site ${linkController.text.substring(0, 24)} não Suportado';
                   });
-                } else if(linkController.text == 'Site "${linkController.text}" não Suportado'){
+                } else if (linkController.text ==
+                    'Site "${linkController.text}" não Suportado') {
                   linkController.text =
                       'Site "${linkController.text}" não Suportado';
-                }
-                else{
+                } else {
                   linkController.clear();
                   linkController.text = 'Necessario link da viatura';
                 }
