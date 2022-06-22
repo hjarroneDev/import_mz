@@ -118,106 +118,107 @@ class _CalculosPageState extends State<CalculosPage> {
         }
       }
 
-      //*Transporte de Mercadoria e outros
+      //! Transporte de Mercadoria e outros
       if (widget.tipo == 'Truck' ||
           widget.tipo == 'Pick up' ||
           widget.tipo == 'Tractor') {
-        if (widget.tipo == 'Pick up') {
-          if (widget.combustivel == 'Diesel') {
-            if (double.parse(widget.peso) <= 5000) {
-              if (double.parse(widget.portas) == 2) {
+        if (widget.combustivel == 'Diesel') {
+          if (double.parse(widget.peso) <= 5000) {
+            if (double.parse(widget.portas) == 2) {
+              //*Direitos
+              calDireito = calCifMetical * 0.05;
+              valDireitos = formatarMoeda.format(calDireito);
+
+              //*ICE
+              calIce = (calCifMetical + calDireito!) * 0;
+              valIce = formatarMoeda.format(calIce);
+
+              //*IVA
+              calIva = (calCifMetical + calDireito! + calIce!) * 0;
+              valIva = formatarMoeda.format(calIva);
+            } else if (double.parse(widget.portas) != 2 &&
+                double.parse(widget.portas) != 4) {
+              if (double.parse(widget.motorCc.replaceAll(',', '')) <= 1500) {
                 //*Direitos
-                calDireito = calCifMetical * 0.05;
+                calDireito = calCifMetical * 0.20;
                 valDireitos = formatarMoeda.format(calDireito);
 
                 //*ICE
-                calIce = (calCifMetical + calDireito!) * 0;
+                calIce = (calCifMetical + calDireito!) * 0.05;
                 valIce = formatarMoeda.format(calIce);
 
                 //*IVA
-                calIva = (calCifMetical + calDireito! + calIce!) * 0;
+                calIva = (calCifMetical + calDireito! + calIce!) * 0.17;
                 valIva = formatarMoeda.format(calIva);
-              } else if (double.parse(widget.portas) != 2 &&
-                  double.parse(widget.portas) != 4) {
-                if (double.parse(widget.motorCc.replaceAll(',', '')) <= 1500) {
+              } else if (double.parse(widget.motorCc.replaceAll(',', '')) >
+                      1500 &&
+                  double.parse(widget.motorCc.replaceAll(',', '')) <= 2500) {
+                if (calAnoDif <= 7) {
                   //*Direitos
                   calDireito = calCifMetical * 0.20;
                   valDireitos = formatarMoeda.format(calDireito);
 
                   //*ICE
-                  calIce = (calCifMetical + calDireito!) * 5;
+                  calIce = (calCifMetical + calDireito!) * 0.25;
                   valIce = formatarMoeda.format(calIce);
 
                   //*IVA
-                  calIva = (calCifMetical + calDireito! + calIce!) * 17;
+                  calIva = (calCifMetical + calDireito! + calIce!) * 0.17;
                   valIva = formatarMoeda.format(calIva);
-                } else if (double.parse(widget.motorCc.replaceAll(',', '')) >
-                        1500 &&
-                    double.parse(widget.motorCc.replaceAll(',', '')) <= 2500) {
-                  if (calAnoDif <= 7) {
-                    //*Direitos
-                    calDireito = calCifMetical * 0.20;
-                    valDireitos = formatarMoeda.format(calDireito);
-
-                    //*ICE
-                    calIce = (calCifMetical + calDireito!) * 0.25;
-                    valIce = formatarMoeda.format(calIce);
-
-                    //*IVA
-                    calIva = (calCifMetical + calDireito! + calIce!) * 0.17;
-                    valIva = formatarMoeda.format(calIva);
-                  } else {
-                    //*Direitos
-                    calDireito = calCifMetical * 0.20;
-                    valDireitos = formatarMoeda.format(calDireito);
-
-                    //*ICE
-                    calIce = (calCifMetical + calDireito!) * 0.3;
-                    if (calIce! >= 105000) {
-                      valIce = formatarMoeda.format(calIce);
-                    } else {
-                      calIce = 105000;
-                      valIce = formatarMoeda.format(calIce);
-                    }
-
-                    //*IVA
-                    calIva = (calCifMetical + calDireito! + calIce!) * 0.17;
-                    valIva = formatarMoeda.format(calIva);
-                  }
                 } else {
-                  if (calAnoDif <= 7) {
-                    //*Direitos
-                    calDireito = calCifMetical * 0.20;
-                    valDireitos = formatarMoeda.format(calDireito);
+                  //*Direitos
+                  calDireito = calCifMetical * 0.20;
+                  valDireitos = formatarMoeda.format(calDireito);
 
-                    //*ICE
-                    calIce = (calCifMetical + calDireito!) * 0.25;
+                  //*ICE
+                  calIce = (calCifMetical + calDireito!) * 0.3;
+                  if (calIce! >= 105000) {
                     valIce = formatarMoeda.format(calIce);
-
-                    //*IVA
-                    calIva = (calCifMetical + calDireito! + calIce!) * 0.17;
-                    valIva = formatarMoeda.format(calIva);
                   } else {
-                    //*Direitos
-                    calDireito = calCifMetical * 0.20;
-                    valDireitos = formatarMoeda.format(calDireito);
-
-                    //*ICE
-                    calIce = (calCifMetical + calDireito!) * 0.3;
-                    if (calIce! >= 105000) {
-                      valIce = formatarMoeda.format(calIce);
-                    } else {
-                      calIce = 105000;
-                      valIce = formatarMoeda.format(calIce);
-                    }
-
-                    //*IVA
-                    calIva = (calCifMetical + calDireito! + calIce!) * 0.17;
-                    valIva = formatarMoeda.format(calIva);
+                    calIce = 105000;
+                    valIce = formatarMoeda.format(calIce);
                   }
+
+                  //*IVA
+                  calIva = (calCifMetical + calDireito! + calIce!) * 0.17;
+                  valIva = formatarMoeda.format(calIva);
                 }
-              } else if (double.parse(widget.motorCc.replaceAll(',', '')) <=
-                  3200) {
+              } else {
+                if (calAnoDif <= 7) {
+                  //*Direitos
+                  calDireito = calCifMetical * 0.20;
+                  valDireitos = formatarMoeda.format(calDireito);
+
+                  //*ICE
+                  calIce = (calCifMetical + calDireito!) * 0.25;
+                  valIce = formatarMoeda.format(calIce);
+
+                  //*IVA
+                  calIva = (calCifMetical + calDireito! + calIce!) * 0.17;
+                  valIva = formatarMoeda.format(calIva);
+                } else {
+                  //*Direitos
+                  calDireito = calCifMetical * 0.20;
+                  valDireitos = formatarMoeda.format(calDireito);
+
+                  //*ICE
+                  calIce = (calCifMetical + calDireito!) * 0.3;
+                  if (calIce! >= 105000) {
+                    valIce = formatarMoeda.format(calIce);
+                  } else {
+                    calIce = 105000;
+                    valIce = formatarMoeda.format(calIce);
+                  }
+
+                  //*IVA
+                  calIva = (calCifMetical + calDireito! + calIce!) * 0.17;
+                  valIva = formatarMoeda.format(calIva);
+                }
+              }
+            }
+
+            if (widget.tipo == 'Pick up') {
+              if (double.parse(widget.motorCc.replaceAll(',', '')) <= 3200) {
                 if (calAnoDif <= 7) {
                   if (double.parse(widget.portas) == 4) {
                     //*Direitos
@@ -265,7 +266,7 @@ class _CalculosPageState extends State<CalculosPage> {
                     valIce = formatarMoeda.format(calIce);
 
                     //*IVA
-                    calIva = (calCifMetical + calDireito! + calIce!) * 17;
+                    calIva = (calCifMetical + calDireito! + calIce!) * 0.17;
                     valIva = formatarMoeda.format(calIva);
                   }
                 } else {
@@ -289,11 +290,233 @@ class _CalculosPageState extends State<CalculosPage> {
                   }
                 }
               }
-            } else if (double.parse(widget.peso) > 5000 &&
-                double.parse(widget.peso) <= 5000) {
-            } else if (double.parse(widget.peso) > 20000) {}
-          } else if (widget.combustivel == 'Gasolina') {
-          } else {}
+            }
+          } else if (double.parse(widget.peso) > 5000 &&
+              double.parse(widget.peso) <= 20000) {
+            //*Direitos
+            calDireito = calCifMetical * 0.05;
+            valDireitos = formatarMoeda.format(calDireito);
+
+            //*ICE
+            calIce = (calCifMetical + calDireito!) * 0;
+            valIce = formatarMoeda.format(calIce);
+
+            //*IVA
+            calIva = (calCifMetical + calDireito! + calIce!) * 0.17;
+            valIva = formatarMoeda.format(calIva);
+          } else if (double.parse(widget.peso) > 20000) {
+            //*Direitos
+            calDireito = calCifMetical * 0.05;
+            valDireitos = formatarMoeda.format(calDireito);
+
+            //*ICE
+            calIce = (calCifMetical + calDireito!) * 0;
+            valIce = formatarMoeda.format(calIce);
+
+            //*IVA
+            calIva = (calCifMetical + calDireito! + calIce!) * 0.17;
+            valIva = formatarMoeda.format(calIva);
+          }
+        } else if (widget.combustivel == 'Gasolina' ||
+            widget.combustivel == 'Petrol') {
+          if (double.parse(widget.peso) <= 5000) {
+            if (widget.tipo == 'Pick up') {
+              if (calAnoDif <= 7) {
+                if (double.parse(widget.portas) == 4) {
+                  //*Direitos
+                  calDireito = calCifMetical * 0.05;
+                  valDireitos = formatarMoeda.format(calDireito);
+
+                  //*ICE
+                  calIce = (calCifMetical + calDireito!) * 0.25;
+                  valIce = formatarMoeda.format(calIce);
+
+                  //*IVA
+                  calIva = (calCifMetical + calDireito! + calIce!) * 0.17;
+                  valIva = formatarMoeda.format(calIva);
+                }
+              } else {
+                if (double.parse(widget.portas) == 4) {
+                  //*Direitos
+                  calDireito = calCifMetical * 0.05;
+                  valDireitos = formatarMoeda.format(calDireito);
+
+                  //*ICE
+                  calIce = (calCifMetical + calDireito!) * 0.3;
+                  if (calIce! >= 85000) {
+                    valIce = formatarMoeda.format(calIce);
+                  } else {
+                    calIce = 85000;
+                    valIce = formatarMoeda.format(calIce);
+                  }
+
+                  //*IVA
+                  calIva = (calCifMetical + calDireito! + calIce!) * 0.17;
+                  valIva = formatarMoeda.format(calIva);
+                }
+              }
+            }
+
+            if (double.parse(widget.portas) == 2) {
+              //*Direitos
+              calDireito = calCifMetical * 0.05;
+              valDireitos = formatarMoeda.format(calDireito);
+
+              //*ICE
+              calIce = (calCifMetical + calDireito!) * 0;
+              valIce = formatarMoeda.format(calIce);
+
+              //*IVA
+              calIva = (calCifMetical + calDireito! + calIce!) * 0.17;
+              valIva = formatarMoeda.format(calIva);
+            } else if (double.parse(widget.portas) != 2 &&
+                double.parse(widget.portas) != 4) {
+              if (double.parse(widget.motorCc.replaceAll(',', '')) <= 1000) {
+                if (calAnoDif <= 7) {
+                  calDireito = calCifMetical * 0.20;
+                  valDireitos = formatarMoeda.format(calDireito);
+
+                  //*ICE
+                  calIce = (calCifMetical + calDireito!) * 0;
+                  valIce = formatarMoeda.format(calIce);
+
+                  //*IVA
+                  calIva = (calCifMetical + calDireito! + calIce!) * 0.17;
+                  valIva = formatarMoeda.format(calIva);
+                } else {
+                  //*Direitos
+                  calDireito = calCifMetical * 0.20;
+                  valDireitos = formatarMoeda.format(calDireito);
+
+                  //*ICE
+                  calIce = (calCifMetical + calDireito!) * 0.05;
+                  if (calIce! >= 10000) {
+                    valIce = formatarMoeda.format(calIce);
+                  } else {
+                    calIce = 10000;
+                    valIce = formatarMoeda.format(calIce);
+                  }
+
+                  //*IVA
+                  calIva = (calCifMetical + calDireito! + calIce!) * 0.17;
+                  valIva = formatarMoeda.format(calIva);
+                }
+              } else if (double.parse(widget.motorCc.replaceAll(',', '')) >
+                      1000 ||
+                  double.parse(widget.motorCc.replaceAll(',', '')) <= 1500) {
+                if (calAnoDif <= 7) {
+                  calDireito = calCifMetical * 0.20;
+                  valDireitos = formatarMoeda.format(calDireito);
+
+                  //*ICE
+                  calIce = (calCifMetical + calDireito!) * 0.05;
+                  valIce = formatarMoeda.format(calIce);
+
+                  //*IVA
+                  calIva = (calCifMetical + calDireito! + calIce!) * 0.17;
+                  valIva = formatarMoeda.format(calIva);
+                } else {
+                  //*Direitos
+                  calDireito = calCifMetical * 0.20;
+                  valDireitos = formatarMoeda.format(calDireito);
+
+                  //*ICE
+                  calIce = (calCifMetical + calDireito!) * 0.10;
+                  if (calIce! >= 13000) {
+                    valIce = formatarMoeda.format(calIce);
+                  } else {
+                    calIce = 13000;
+                    valIce = formatarMoeda.format(calIce);
+                  }
+
+                  //*IVA
+                  calIva = (calCifMetical + calDireito! + calIce!) * 0.17;
+                  valIva = formatarMoeda.format(calIva);
+                }
+              } else if (double.parse(widget.motorCc.replaceAll(',', '')) >
+                      1500 ||
+                  double.parse(widget.motorCc.replaceAll(',', '')) <= 3000) {
+                if (calAnoDif <= 7) {
+                  calDireito = calCifMetical * 0.20;
+                  valDireitos = formatarMoeda.format(calDireito);
+
+                  //*ICE
+                  calIce = (calCifMetical + calDireito!) * 0.25;
+                  valIce = formatarMoeda.format(calIce);
+
+                  //*IVA
+                  calIva = (calCifMetical + calDireito! + calIce!) * 0.17;
+                  valIva = formatarMoeda.format(calIva);
+                } else {
+                  //*Direitos
+                  calDireito = calCifMetical * 0.20;
+                  valDireitos = formatarMoeda.format(calDireito);
+
+                  //*ICE
+                  calIce = (calCifMetical + calDireito!) * 0.30;
+                  if (calIce! >= 70000) {
+                    valIce = formatarMoeda.format(calIce);
+                  } else {
+                    calIce = 70000;
+                    valIce = formatarMoeda.format(calIce);
+                  }
+
+                  //*IVA
+                  calIva = (calCifMetical + calDireito! + calIce!) * 0.17;
+                  valIva = formatarMoeda.format(calIva);
+                }
+              }else {
+                if (calAnoDif <= 7) {
+                  calDireito = calCifMetical * 0.20;
+                  valDireitos = formatarMoeda.format(calDireito);
+
+                  //*ICE
+                  calIce = (calCifMetical + calDireito!) * 0.25;
+                  valIce = formatarMoeda.format(calIce);
+
+                  //*IVA
+                  calIva = (calCifMetical + calDireito! + calIce!) * 0.17;
+                  valIva = formatarMoeda.format(calIva);
+                } else {
+                  //*Direitos
+                  calDireito = calCifMetical * 0.20;
+                  valDireitos = formatarMoeda.format(calDireito);
+
+                  //*ICE
+                  calIce = (calCifMetical + calDireito!) * 0.30;
+                  if (calIce! >= 140000) {
+                    valIce = formatarMoeda.format(calIce);
+                  } else {
+                    calIce = 140000;
+                    valIce = formatarMoeda.format(calIce);
+                  }
+
+                  //*IVA
+                  calIva = (calCifMetical + calDireito! + calIce!) * 0.17;
+                  valIva = formatarMoeda.format(calIva);
+                }
+              }
+
+
+
+            }
+          }
+        } else if(widget.combustivel == 'Gasolina' ||
+            widget.combustivel == 'Petrol'|| (widget.combustivel == 'Diesel')) {
+
+              //*Direitos
+            calDireito = calCifMetical * 0.05;
+            valDireitos = formatarMoeda.format(calDireito);
+
+            //*ICE
+            calIce = (calCifMetical + calDireito!) * 0;
+            valIce = formatarMoeda.format(calIce);
+
+            //*IVA
+            calIva = (calCifMetical + calDireito! + calIce!) * 0.17;
+            valIva = formatarMoeda.format(calIva);
+
+
         }
       }
     }
