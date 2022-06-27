@@ -31,10 +31,11 @@ class _CustosState extends State<Custos> {
   late String referencia;
   late String motorCc;
   late String combustivel;
-  late String assentos;
+  late int assentos;
   late String portas;
   late String ano;
   late String peso;
+  late String maxcap;
 
   late String imageLink;
 
@@ -47,9 +48,10 @@ class _CustosState extends State<Custos> {
     referencia = '';
     motorCc = '';
     combustivel = '';
-    assentos = '';
+    assentos = 0;
     ano = '';
     peso = '';
+    maxcap = '';
     imageLink = '';
     portas = '';
     cambio = '';
@@ -117,6 +119,12 @@ class _CustosState extends State<Custos> {
     final pesotd = pesotr
         .map((element) => element.getElementsByTagName('td')[1].innerHtml);
 
+    //MaxCapacite
+    final capacittr =
+        elements.map((element) => element.getElementsByTagName('tr')[10]);
+    final capacittd = capacittr
+        .map((element) => element.getElementsByTagName('td')[0].innerHtml);
+
     //Combustivel
     final combtr =
         elements.map((element) => element.getElementsByTagName('tr')[4]);
@@ -155,6 +163,14 @@ class _CustosState extends State<Custos> {
             .replaceAll(')', '')
             .replaceAll(',', '')
             .replaceAll('kg', '');
+
+        maxcap = capacittd
+            .toString()
+            .replaceAll('(', '')
+            .replaceAll(')', '')
+            .replaceAll('ton', '')
+            .trim();
+
         combustivel = combtd.toString().replaceAll('(', '').replaceAll(')', '');
         ano = anotd
             .toString()
@@ -162,7 +178,10 @@ class _CustosState extends State<Custos> {
             .replaceAll(')', '')
             .substring(0, 4);
 
-        assentos = asstd.toString().replaceAll('(', '').replaceAll(')', '').substring(0, 1);
+        assentos = int.parse(asstd.toString().replaceAll('(', '')
+            .replaceAll(')', '').trim())
+      ;
+
         portas = portd.toString().replaceAll('(', '').replaceAll(')', '');
 
         fob = valfob
@@ -345,6 +364,7 @@ class _CustosState extends State<Custos> {
                         fob: fob,
                         motorCc: motorCc,
                         peso: peso,
+                        maxcap: maxcap,
                         portas: portas,
                         referencia: referencia,
                         tipo: tipo,
@@ -365,6 +385,7 @@ class _CustosState extends State<Custos> {
                     fob: fob,
                     motorCc: motorCc,
                     peso: peso,
+                    maxcap: maxcap,
                     portas: portas,
                     tipo: tipo,
                     cambio: cambio,

@@ -7,14 +7,14 @@ class GetData extends StatefulWidget {
   final String fob;
   final String cif;
 
-
   final String referencia;
   final String motorCc;
   final String combustivel;
-  final String assentos;
+  final int assentos;
   final String portas;
   final String ano;
   final String peso;
+  final String maxcap;
 
   const GetData({
     Key? key,
@@ -29,7 +29,7 @@ class GetData extends StatefulWidget {
     required this.peso,
     required this.carname,
     required this.referencia,
-    
+    required this.maxcap,
   }) : super(key: key);
 
   @override
@@ -37,6 +37,19 @@ class GetData extends StatefulWidget {
 }
 
 class _GetDataState extends State<GetData> {
+  String? pesoBruto;
+
+  @override
+  void initState() {
+    String cap1 = ((widget.maxcap == '-')? 0: widget.maxcap).toString();
+    String peso1 = ((widget.peso == '-')? 0: widget.peso).toString();
+
+    pesoBruto = (double.parse(cap1) * 1000 + double.parse(peso1))
+        .toString();
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -114,8 +127,11 @@ class _GetDataState extends State<GetData> {
             SizedBox(
               height: 3,
             ),
+            SizedBox(
+              height: 3,
+            ),
             Text(
-              'Peso Kg.....................',
+              'Peso Bruto...........',
               style: TextStyle(
                 fontSize: 16,
                 color: Colors.black54,
@@ -130,6 +146,9 @@ class _GetDataState extends State<GetData> {
                 fontSize: 16,
                 color: Colors.black54,
               ),
+            ),
+            SizedBox(
+              height: 3,
             ),
           ],
         ),
@@ -195,7 +214,7 @@ class _GetDataState extends State<GetData> {
               height: 3,
             ),
             Text(
-              widget.assentos,
+              (widget.assentos).toString(),
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 16,
@@ -217,7 +236,7 @@ class _GetDataState extends State<GetData> {
               height: 3,
             ),
             Text(
-              widget.peso,
+              pesoBruto!,
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 16,
@@ -234,6 +253,9 @@ class _GetDataState extends State<GetData> {
                 fontSize: 16,
                 color: Colors.black54,
               ),
+            ),
+            const SizedBox(
+              height: 3,
             ),
           ],
         ),
