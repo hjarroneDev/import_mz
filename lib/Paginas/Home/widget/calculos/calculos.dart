@@ -96,7 +96,7 @@ class _CalculosPageState extends State<CalculosPage> {
           calIva = (calCifMetical + calDireito! + calIce!) * 0.17;
           valIva = formatarMoeda.format(calIva);
         } else {
-          
+
           calDireito = calCifMetical * 0.05;
           valDireitos = formatarMoeda.format(calDireito);
 
@@ -933,9 +933,9 @@ class _CalculosPageState extends State<CalculosPage> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 25),
+      padding: const EdgeInsets.only(top: 25, right: 25),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(
@@ -988,7 +988,7 @@ class _CalculosPageState extends State<CalculosPage> {
                     height: 3,
                   ),
                   Text(
-                    'Imposto de valor Acrescentado.....',
+                    'Imposto de valor Acrescentado......',
                     style: TextStyle(
                       fontSize: 16,
                       color: Colors.black54,
@@ -1008,7 +1008,7 @@ class _CalculosPageState extends State<CalculosPage> {
                     height: 3,
                   ),
                   Text(
-                    'Serviço Mcnet....................................',
+                    'Serviço Mcnet...................................',
                     style: TextStyle(
                       fontSize: 16,
                       color: Colors.black54,
@@ -1018,7 +1018,7 @@ class _CalculosPageState extends State<CalculosPage> {
                     height: 3,
                   ),
                   Text(
-                    'INATTER..............................................',
+                    'INATTER............................................',
                     style: TextStyle(
                       fontSize: 16,
                       color: Colors.black54,
@@ -1028,7 +1028,7 @@ class _CalculosPageState extends State<CalculosPage> {
                     height: 3,
                   ),
                   Text(
-                    'Maputo Car.........................................',
+                    'Maputo Car........................................',
                     style: TextStyle(
                       fontSize: 16,
                       color: Colors.black54,
@@ -1038,7 +1038,7 @@ class _CalculosPageState extends State<CalculosPage> {
                     height: 3,
                   ),
                   Text(
-                    'Kudumba.............................................',
+                    'Kudumba...........................................',
                     style: TextStyle(
                       fontSize: 16,
                       color: Colors.black54,
@@ -1056,7 +1056,7 @@ class _CalculosPageState extends State<CalculosPage> {
                     height: 5,
                   ),
                   Text(
-                    'Total.............................',
+                    'Total....................................',
                     style: TextStyle(
                         fontSize: 20,
                         color: Colors.black54,
@@ -1065,7 +1065,7 @@ class _CalculosPageState extends State<CalculosPage> {
                 ],
               ),
               const SizedBox(
-                width: 25,
+                width: 10,
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,

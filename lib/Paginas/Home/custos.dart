@@ -178,9 +178,11 @@ class _CustosState extends State<Custos> {
             .replaceAll(')', '')
             .substring(0, 4);
 
-        assentos = int.parse(asstd.toString().replaceAll('(', '')
-            .replaceAll(')', ' ').substring(0,2))
-      ;
+        assentos = int.parse(asstd
+            .toString()
+            .replaceAll('(', '')
+            .replaceAll(')', ' ')
+            .substring(0, 2));
 
         portas = portd.toString().replaceAll('(', '').replaceAll(')', '');
 
@@ -212,124 +214,335 @@ class _CustosState extends State<Custos> {
     );
   }
 
-
-
-
-  
-
   @override
   Widget build(BuildContext context) {
+    final screamSizeWidth = MediaQuery.of(context).size.width;
     return Padding(
-      padding: const EdgeInsets.only(left: 20, right: 20, bottom: 50),
+      padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
       child: Column(
-           
-
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(
-                width: 650,
-                child: TextField(
-                  controller: linkController,
-                  minLines: 1,
-                  maxLines: 3,
-                  style: GoogleFonts.roboto(
-                    textStyle: TextStyle(
-                      fontSize: 18,
-                      color: Colors.redAccent.shade100,
-                    ),
-                  ),
-                  textAlign: TextAlign.start,
-                  textAlignVertical: TextAlignVertical.bottom,
-                  decoration: InputDecoration(
-                    hintText: 'Colar Link ou Referencia',
-                    hintStyle: GoogleFonts.roboto(color: Colors.black26),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                    enabledBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.grey,
-                        width: 0.0,
+          (screamSizeWidth > 890)
+              ? Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      width: 650,
+                      child: TextField(
+                        controller: linkController,
+                        minLines: 1,
+                        maxLines: 3,
+                        style: GoogleFonts.roboto(
+                          textStyle: TextStyle(
+                            fontSize: 18,
+                            color: Colors.redAccent.shade100,
+                          ),
+                        ),
+                        textAlign: TextAlign.start,
+                        textAlignVertical: TextAlignVertical.bottom,
+                        decoration: InputDecoration(
+                          hintText: 'Colar Link ou Referencia',
+                          hintStyle: GoogleFonts.roboto(color: Colors.black26),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                          enabledBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.grey,
+                              width: 0.0,
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.teal.shade200,
+                              width: 2.0,
+                            ),
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                          suffixIcon: IconButton(
+                            // Icon to
+                            icon: const Icon(
+                              Icons.clear,
+                              size: 25,
+                            ), // clear text
+                            onPressed: () {
+                              linkController.clear();
+                            },
+                          ),
+                        ),
                       ),
                     ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.teal.shade200,
-                        width: 2.0,
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    SizedBox(
+                      height: 53,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.teal.shade300,
+                        ),
+                        onPressed: () async {
+                          if (linkController.text == '' ||
+                              linkController.text ==
+                                  'Necessario link da viatura') {
+                            linkController.text = 'Necessario link da viatura';
+                          } else if (linkController.text.length >= 24 &&
+                              linkController.text.substring(0, 24) ==
+                                  'https://www.beforward.jp') {
+                            getDesktopWebsiteData();
+                          } else if (linkController.text.length >= 23 &&
+                              linkController.text.substring(0, 23) ==
+                                  'https://sp.beforward.jp') {
+                            setState(() {
+                              linkController.text =
+                                  'Site ${linkController.text.substring(0, 23)} não Suportado';
+                            });
+                          } else if (linkController.text.length >= 24 &&
+                              linkController.text.substring(0, 24) ==
+                                  'https://www.sbtjapan.com') {
+                            setState(() {
+                              linkController.text =
+                                  'Site ${linkController.text.substring(0, 24)} não Suportado';
+                            });
+                          } else if (linkController.text ==
+                              'Site "${linkController.text}" não Suportado') {
+                            linkController.text =
+                                'Site "${linkController.text}" não Suportado';
+                          } else {
+                            linkController.clear();
+                            linkController.text = 'Necessario link da viatura';
+                          }
+                        },
+                        child: Text(
+                          'Calcular'.toUpperCase(),
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15,
+                            color: Colors.white,
+                          ),
+                        ),
                       ),
-                      borderRadius: BorderRadius.circular(5.0),
                     ),
-                    suffixIcon: IconButton(
-                      // Icon to
-                      icon: const Icon(
-                        Icons.clear,
-                        size: 25,
-                      ), // clear text
-                      onPressed: () {
-                        linkController.clear();
-                      },
+                  ],
+                )
+              : (screamSizeWidth < 890 && screamSizeWidth > 780)
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: TextField(
+                            controller: linkController,
+                            minLines: 1,
+                            maxLines: 3,
+                            style: GoogleFonts.roboto(
+                              textStyle: TextStyle(
+                                fontSize: 18,
+                                color: Colors.redAccent.shade100,
+                              ),
+                            ),
+                            textAlign: TextAlign.start,
+                            textAlignVertical: TextAlignVertical.bottom,
+                            decoration: InputDecoration(
+                              hintText: 'Colar Link ou Referencia',
+                              hintStyle:
+                                  GoogleFonts.roboto(color: Colors.black26),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0),
+                              ),
+                              enabledBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.grey,
+                                  width: 0.0,
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.teal.shade200,
+                                  width: 2.0,
+                                ),
+                                borderRadius: BorderRadius.circular(5.0),
+                              ),
+                              suffixIcon: IconButton(
+                                // Icon to
+                                icon: const Icon(
+                                  Icons.clear,
+                                  size: 25,
+                                ), // clear text
+                                onPressed: () {
+                                  linkController.clear();
+                                },
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        SizedBox(
+                          height: 53,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.teal.shade300,
+                            ),
+                            onPressed: () async {
+                              if (linkController.text == '' ||
+                                  linkController.text ==
+                                      'Necessario link da viatura') {
+                                linkController.text =
+                                    'Necessario link da viatura';
+                              } else if (linkController.text.length >= 24 &&
+                                  linkController.text.substring(0, 24) ==
+                                      'https://www.beforward.jp') {
+                                getDesktopWebsiteData();
+                              } else if (linkController.text.length >= 23 &&
+                                  linkController.text.substring(0, 23) ==
+                                      'https://sp.beforward.jp') {
+                                setState(() {
+                                  linkController.text =
+                                      'Site ${linkController.text.substring(0, 23)} não Suportado';
+                                });
+                              } else if (linkController.text.length >= 24 &&
+                                  linkController.text.substring(0, 24) ==
+                                      'https://www.sbtjapan.com') {
+                                setState(() {
+                                  linkController.text =
+                                      'Site ${linkController.text.substring(0, 24)} não Suportado';
+                                });
+                              } else if (linkController.text ==
+                                  'Site "${linkController.text}" não Suportado') {
+                                linkController.text =
+                                    'Site "${linkController.text}" não Suportado';
+                              } else {
+                                linkController.clear();
+                                linkController.text =
+                                    'Necessario link da viatura';
+                              }
+                            },
+                            child: Text(
+                              'Calcular'.toUpperCase(),
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
+                  : Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Row(
+                          children: [
+                            Expanded(
+                              child: TextField(
+                                controller: linkController,
+                                minLines: 1,
+                                maxLines: 3,
+                                style: GoogleFonts.roboto(
+                                  textStyle: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.redAccent.shade100,
+                                  ),
+                                ),
+                                textAlign: TextAlign.start,
+                                textAlignVertical: TextAlignVertical.bottom,
+                                decoration: InputDecoration(
+                                  hintText: 'Colar Link ou Referencia',
+                                  hintStyle:
+                                      GoogleFonts.roboto(color: Colors.black26),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(5.0),
+                                  ),
+                                  enabledBorder: const OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Colors.grey,
+                                      width: 0.0,
+                                    ),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Colors.teal.shade200,
+                                      width: 2.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(5.0),
+                                  ),
+                                  suffixIcon: IconButton(
+                                    // Icon to
+                                    icon: const Icon(
+                                      Icons.clear,
+                                      size: 25,
+                                    ), // clear text
+                                    onPressed: () {
+                                      linkController.clear();
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        SizedBox(
+                          height: 40,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.teal.shade300,
+                            ),
+                            onPressed: () async {
+                              if (linkController.text == '' ||
+                                  linkController.text ==
+                                      'Necessario link da viatura') {
+                                linkController.text =
+                                    'Necessario link da viatura';
+                              } else if (linkController.text.length >= 24 &&
+                                  linkController.text.substring(0, 24) ==
+                                      'https://www.beforward.jp') {
+                                getDesktopWebsiteData();
+                              } else if (linkController.text.length >= 23 &&
+                                  linkController.text.substring(0, 23) ==
+                                      'https://sp.beforward.jp') {
+                                setState(() {
+                                  linkController.text =
+                                      'Site ${linkController.text.substring(0, 23)} não Suportado';
+                                });
+                              } else if (linkController.text.length >= 24 &&
+                                  linkController.text.substring(0, 24) ==
+                                      'https://www.sbtjapan.com') {
+                                setState(() {
+                                  linkController.text =
+                                      'Site ${linkController.text.substring(0, 24)} não Suportado';
+                                });
+                              } else if (linkController.text ==
+                                  'Site "${linkController.text}" não Suportado') {
+                                linkController.text =
+                                    'Site "${linkController.text}" não Suportado';
+                              } else {
+                                linkController.clear();
+                                linkController.text =
+                                    'Necessario link da viatura';
+                              }
+                            },
+                            child: Text(
+                              'Calcular'.toUpperCase(),
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                ),
-              ),
-              const SizedBox(width: 20,),
-          
-
-              SizedBox(
-                height: 53,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.teal.shade300,
-                  ),
-                  onPressed: () async {
-                    if (linkController.text == '' ||
-                        linkController.text == 'Necessario link da viatura') {
-                      linkController.text = 'Necessario link da viatura';
-                    } else if (linkController.text.length >= 24 &&
-                        linkController.text.substring(0, 24) ==
-                            'https://www.beforward.jp') {
-                      getDesktopWebsiteData();
-                    } else if (linkController.text.length >= 23 &&
-                        linkController.text.substring(0, 23) ==
-                            'https://sp.beforward.jp') {
-                      setState(() {
-                        linkController.text =
-                            'Site ${linkController.text.substring(0, 23)} não Suportado';
-                      });
-                    } else if (linkController.text.length >= 24 &&
-                        linkController.text.substring(0, 24) ==
-                            'https://www.sbtjapan.com') {
-                      setState(() {
-                        linkController.text =
-                            'Site ${linkController.text.substring(0, 24)} não Suportado';
-                      });
-                    } else if (linkController.text ==
-                        'Site "${linkController.text}" não Suportado') {
-                      linkController.text =
-                          'Site "${linkController.text}" não Suportado';
-                    } else {
-                      linkController.clear();
-                      linkController.text = 'Necessario link da viatura';
-                    }
-                  },
-                  child: Text(
-                    'Calcular'.toUpperCase(),
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          
           const SizedBox(
-            height: 100,
+            height: 20,
           ),
           if (islodin == true && linkController.text != '')
             const Center(
@@ -340,72 +553,237 @@ class _CustosState extends State<Custos> {
               ),
             )
           else
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ImageView(
-                  imageLink: imageLink,
-                ),
-                const SizedBox(
-                  width: 50,
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      width: 300,
-                      child: Text(
-                        carname,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                          color: Colors.black54,
+            Center(
+              child: (screamSizeWidth > 1250)
+                  ? Padding(
+                      padding: const EdgeInsets.only(top: 120),
+                      child: Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Expanded(
+                                child: ImageView(
+                                  imageLink: imageLink,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 25,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 25),
+                                  child: SizedBox(
+                                    width: 300,
+                                    child: Text(
+                                      carname,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20,
+                                        color: Colors.black54,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 15,
+                                ),
+                                Visibility(
+                                  visible: visivel,
+                                  child: GetData(
+                                    ano: ano,
+                                    assentos: assentos,
+                                    carname: carname,
+                                    cif: cif,
+                                    combustivel: combustivel,
+                                    fob: fob,
+                                    motorCc: motorCc,
+                                    peso: peso,
+                                    maxcap: maxcap,
+                                    portas: portas,
+                                    referencia: referencia,
+                                    tipo: tipo,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              width: 15,
+                            ),
+                            Visibility(
+                              visible: visivel,
+                              child: CalculosPage(
+                                ano: ano,
+                                assentos: assentos,
+                                cif: cif,
+                                combustivel: combustivel,
+                                fob: fob,
+                                motorCc: motorCc,
+                                peso: peso,
+                                maxcap: maxcap,
+                                portas: portas,
+                                tipo: tipo,
+                                cambio: cambio,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    Visibility(
-                      visible: visivel,
-                      child: GetData(
-                        ano: ano,
-                        assentos: assentos,
-                        carname: carname,
-                        cif: cif,
-                        combustivel: combustivel,
-                        fob: fob,
-                        motorCc: motorCc,
-                        peso: peso,
-                        maxcap: maxcap,
-                        portas: portas,
-                        referencia: referencia,
-                        tipo: tipo,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  width: 15,
-                ),
-                Visibility(
-                  visible: visivel,
-                  child: CalculosPage(
-                    ano: ano,
-                    assentos: assentos,
-                    cif: cif,
-                    combustivel: combustivel,
-                    fob: fob,
-                    motorCc: motorCc,
-                    peso: peso,
-                    maxcap: maxcap,
-                    portas: portas,
-                    tipo: tipo,
-                    cambio: cambio,
-                  ),
-                ),
-              ],
+                    )
+                  : (screamSizeWidth < 1310 && screamSizeWidth > 890)
+                      ? Padding(
+                          padding: const EdgeInsets.only(
+                            top: 80,
+                          ),
+                          child: Expanded(
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    SizedBox(
+                                      child: ImageView(
+                                        imageLink: imageLink,
+                                      ),
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                          width: 375,
+                                          child: Text(
+                                            carname,
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 20,
+                                              color: Colors.black54,
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        Visibility(
+                                          visible: visivel,
+                                          child: GetData(
+                                            ano: ano,
+                                            assentos: assentos,
+                                            carname: carname,
+                                            cif: cif,
+                                            combustivel: combustivel,
+                                            fob: fob,
+                                            motorCc: motorCc,
+                                            peso: peso,
+                                            maxcap: maxcap,
+                                            portas: portas,
+                                            referencia: referencia,
+                                            tipo: tipo,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Visibility(
+                                      visible: visivel,
+                                      child: CalculosPage(
+                                        ano: ano,
+                                        assentos: assentos,
+                                        cif: cif,
+                                        combustivel: combustivel,
+                                        fob: fob,
+                                        motorCc: motorCc,
+                                        peso: peso,
+                                        maxcap: maxcap,
+                                        portas: portas,
+                                        tipo: tipo,
+                                        cambio: cambio,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
+                      : Padding(
+                          padding: const EdgeInsets.only(top: 50),
+                          child: Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  width: 400,
+                                  child: Text(
+                                    carname,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                      color: Colors.black54,
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                ImageView(
+                                  imageLink: imageLink,
+                                ),
+                                const SizedBox(
+                                  height: 30,
+                                ),
+                                Visibility(
+                                  visible: visivel,
+                                  child: GetData(
+                                    ano: ano,
+                                    assentos: assentos,
+                                    carname: carname,
+                                    cif: cif,
+                                    combustivel: combustivel,
+                                    fob: fob,
+                                    motorCc: motorCc,
+                                    peso: peso,
+                                    maxcap: maxcap,
+                                    portas: portas,
+                                    referencia: referencia,
+                                    tipo: tipo,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                Visibility(
+                                  visible: visivel,
+                                  child: CalculosPage(
+                                    ano: ano,
+                                    assentos: assentos,
+                                    cif: cif,
+                                    combustivel: combustivel,
+                                    fob: fob,
+                                    motorCc: motorCc,
+                                    peso: peso,
+                                    maxcap: maxcap,
+                                    portas: portas,
+                                    tipo: tipo,
+                                    cambio: cambio,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
             ),
         ],
       ),

@@ -24,6 +24,7 @@ class _HomeScreanState extends State<HomeScrean> {
         ),
         child: Center(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
                 padding: const EdgeInsets.all(10),
@@ -38,7 +39,7 @@ class _HomeScreanState extends State<HomeScrean> {
                               "Import",
                               style: GoogleFonts.roboto(
                                 textStyle: TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 23,
                                   color: Colors.teal.shade200,
                                   fontWeight: FontWeight.bold,
                                   decoration: TextDecoration.underline,
@@ -49,7 +50,7 @@ class _HomeScreanState extends State<HomeScrean> {
                               "Moz",
                               style: GoogleFonts.aBeeZee(
                                 textStyle: TextStyle(
-                                  fontSize: 25,
+                                  fontSize: 28,
                                   color: Colors.yellow.shade800,
                                   fontWeight: FontWeight.bold,
                                 ),

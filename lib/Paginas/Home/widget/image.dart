@@ -11,21 +11,19 @@ class ImageView extends StatefulWidget {
 class _ImageViewState extends State<ImageView> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 20),
+    return Container(
+      alignment: Alignment.center,
       child: Container(
-        alignment: Alignment.center,
-        child: Container(
-          width: 460.0,
-          height: 300.0,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30.0),
-            image: DecorationImage(
-              image: NetworkImage(
-                'https:${widget.imageLink}',
-              ),
-              fit: BoxFit.cover,
+        width: 460.0,
+        height: 300.0,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10.0),
+          image: DecorationImage(
+            image: NetworkImage(
+              'https:${widget.imageLink}',
             ),
+            fit: BoxFit.cover,
+            scale: 5
           ),
         ),
       ),
