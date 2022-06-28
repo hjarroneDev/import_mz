@@ -179,7 +179,7 @@ class _CustosState extends State<Custos> {
             .substring(0, 4);
 
         assentos = int.parse(asstd.toString().replaceAll('(', '')
-            .replaceAll(')', '').trim())
+            .replaceAll(')', ' ').substring(0,2))
       ;
 
         portas = portd.toString().replaceAll('(', '').replaceAll(')', '');
@@ -212,110 +212,124 @@ class _CustosState extends State<Custos> {
     );
   }
 
+
+
+
+  
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 20, right: 20, bottom: 50),
       child: Column(
+           
+
         children: [
-          Padding(
-            padding:
-                const EdgeInsets.only(right: 20, left: 20, top: 5, bottom: 20),
-            child: SizedBox(
-              child: TextField(
-                controller: linkController,
-                minLines: 1,
-                maxLines: 3,
-                style: GoogleFonts.roboto(
-                  textStyle: TextStyle(
-                    fontSize: 18,
-                    color: Colors.redAccent.shade100,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: 650,
+                child: TextField(
+                  controller: linkController,
+                  minLines: 1,
+                  maxLines: 3,
+                  style: GoogleFonts.roboto(
+                    textStyle: TextStyle(
+                      fontSize: 18,
+                      color: Colors.redAccent.shade100,
+                    ),
+                  ),
+                  textAlign: TextAlign.start,
+                  textAlignVertical: TextAlignVertical.bottom,
+                  decoration: InputDecoration(
+                    hintText: 'Colar Link ou Referencia',
+                    hintStyle: GoogleFonts.roboto(color: Colors.black26),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                    enabledBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.grey,
+                        width: 0.0,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.teal.shade200,
+                        width: 2.0,
+                      ),
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                    suffixIcon: IconButton(
+                      // Icon to
+                      icon: const Icon(
+                        Icons.clear,
+                        size: 25,
+                      ), // clear text
+                      onPressed: () {
+                        linkController.clear();
+                      },
+                    ),
                   ),
                 ),
-                textAlign: TextAlign.start,
-                textAlignVertical: TextAlignVertical.bottom,
-                decoration: InputDecoration(
-                  hintText: 'Colar Link ou Referencia',
-                  hintStyle: GoogleFonts.roboto(color: Colors.black26),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5.0),
+              ),
+              const SizedBox(width: 20,),
+          
+
+              SizedBox(
+                height: 53,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.teal.shade300,
                   ),
-                  enabledBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.grey,
-                      width: 0.0,
-                    ),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.teal.shade200,
-                      width: 2.0,
-                    ),
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-                  suffixIcon: IconButton(
-                    // Icon to
-                    icon: const Icon(
-                      Icons.clear,
-                      size: 25,
-                    ), // clear text
-                    onPressed: () {
+                  onPressed: () async {
+                    if (linkController.text == '' ||
+                        linkController.text == 'Necessario link da viatura') {
+                      linkController.text = 'Necessario link da viatura';
+                    } else if (linkController.text.length >= 24 &&
+                        linkController.text.substring(0, 24) ==
+                            'https://www.beforward.jp') {
+                      getDesktopWebsiteData();
+                    } else if (linkController.text.length >= 23 &&
+                        linkController.text.substring(0, 23) ==
+                            'https://sp.beforward.jp') {
+                      setState(() {
+                        linkController.text =
+                            'Site ${linkController.text.substring(0, 23)} não Suportado';
+                      });
+                    } else if (linkController.text.length >= 24 &&
+                        linkController.text.substring(0, 24) ==
+                            'https://www.sbtjapan.com') {
+                      setState(() {
+                        linkController.text =
+                            'Site ${linkController.text.substring(0, 24)} não Suportado';
+                      });
+                    } else if (linkController.text ==
+                        'Site "${linkController.text}" não Suportado') {
+                      linkController.text =
+                          'Site "${linkController.text}" não Suportado';
+                    } else {
                       linkController.clear();
-                    },
+                      linkController.text = 'Necessario link da viatura';
+                    }
+                  },
+                  child: Text(
+                    'Calcular'.toUpperCase(),
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ),
-            ),
+            ],
           ),
-          SizedBox(
-            height: 35,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                primary: Colors.teal.shade300,
-              ),
-              onPressed: () async {
-                if (linkController.text == '' ||
-                    linkController.text == 'Necessario link da viatura') {
-                  linkController.text = 'Necessario link da viatura';
-                } else if (linkController.text.length >= 24 &&
-                    linkController.text.substring(0, 24) ==
-                        'https://www.beforward.jp') {
-                  getDesktopWebsiteData();
-                } else if (linkController.text.length >= 23 &&
-                    linkController.text.substring(0, 23) ==
-                        'https://sp.beforward.jp') {
-                  setState(() {
-                    linkController.text =
-                        'Site ${linkController.text.substring(0, 23)} não Suportado';
-                  });
-                } else if (linkController.text.length >= 24 &&
-                    linkController.text.substring(0, 24) ==
-                        'https://www.sbtjapan.com') {
-                  setState(() {
-                    linkController.text =
-                        'Site ${linkController.text.substring(0, 24)} não Suportado';
-                  });
-                } else if (linkController.text ==
-                    'Site "${linkController.text}" não Suportado') {
-                  linkController.text =
-                      'Site "${linkController.text}" não Suportado';
-                } else {
-                  linkController.clear();
-                  linkController.text = 'Necessario link da viatura';
-                }
-              },
-              child: Text(
-                'Calcular'.toUpperCase(),
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 15,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ),
+          
           const SizedBox(
-            height: 50,
+            height: 100,
           ),
           if (islodin == true && linkController.text != '')
             const Center(

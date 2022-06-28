@@ -83,8 +83,20 @@ class _CalculosPageState extends State<CalculosPage> {
 //*Assentos Maior ou Igaual a 10
     void isIgualeMaior10() {
       if (widget.combustivel == 'Diesel') {
+
         if (widget.assentos <= 39) {
+          calDireito = calCifMetical * 0.05;
+          valDireitos = formatarMoeda.format(calDireito);
+
+          //*ICE
+          calIce = (calCifMetical + calDireito!) * 0;
+          valIce = formatarMoeda.format(calIce);
+
+          //*IVA
+          calIva = (calCifMetical + calDireito! + calIce!) * 0.17;
+          valIva = formatarMoeda.format(calIva);
         } else {
+          
           calDireito = calCifMetical * 0.05;
           valDireitos = formatarMoeda.format(calDireito);
 
@@ -98,48 +110,39 @@ class _CalculosPageState extends State<CalculosPage> {
         }
       } else if (widget.combustivel == 'Gasolina' ||
           widget.combustivel == 'Petrol') {
+        calDireito = calCifMetical * 0.05;
+        valDireitos = formatarMoeda.format(calDireito);
 
-            calDireito = calCifMetical * 0.05;
-          valDireitos = formatarMoeda.format(calDireito);
+        //*ICE
+        calIce = (calCifMetical + calDireito!) * 0;
+        valIce = formatarMoeda.format(calIce);
 
-          //*ICE
-          calIce = (calCifMetical + calDireito!) * 0;
-          valIce = formatarMoeda.format(calIce);
+        //*IVA
+        calIva = (calCifMetical + calDireito! + calIce!) * 0.17;
+        valIva = formatarMoeda.format(calIva);
+      } else if (widget.combustivel == 'Eléctrico') {
+        calDireito = calCifMetical * 0.20;
+        valDireitos = formatarMoeda.format(calDireito);
 
-          //*IVA
-          calIva = (calCifMetical + calDireito! + calIce!) * 0.17;
-          valIva = formatarMoeda.format(calIva);
+        //*ICE
+        calIce = (calCifMetical + calDireito!) * 0;
+        valIce = formatarMoeda.format(calIce);
 
+        //*IVA
+        calIva = (calCifMetical + calDireito! + calIce!) * 0.17;
+        valIva = formatarMoeda.format(calIva);
+      } else {
+        calDireito = calCifMetical * 0.20;
+        valDireitos = formatarMoeda.format(calDireito);
 
-          }
-          else if(widget.combustivel == 'Eléctrico'){
+        //*ICE
+        calIce = (calCifMetical + calDireito!) * 0.30;
+        valIce = formatarMoeda.format(calIce);
 
-            calDireito = calCifMetical * 0.20;
-          valDireitos = formatarMoeda.format(calDireito);
-
-          //*ICE
-          calIce = (calCifMetical + calDireito!) * 0;
-          valIce = formatarMoeda.format(calIce);
-
-          //*IVA
-          calIva = (calCifMetical + calDireito! + calIce!) * 0.17;
-          valIva = formatarMoeda.format(calIva);
-
-
-          }else{
-
-            calDireito = calCifMetical * 0.20;
-          valDireitos = formatarMoeda.format(calDireito);
-
-          //*ICE
-          calIce = (calCifMetical + calDireito!) * 0.30;
-          valIce = formatarMoeda.format(calIce);
-
-          //*IVA
-          calIva = (calCifMetical + calDireito! + calIce!) * 0.17;
-          valIva = formatarMoeda.format(calIva);
-
-          }
+        //*IVA
+        calIva = (calCifMetical + calDireito! + calIce!) * 0.17;
+        valIva = formatarMoeda.format(calIva);
+      }
     }
 
 //! Condicao 2 (Assentos < 10)
@@ -362,9 +365,8 @@ class _CalculosPageState extends State<CalculosPage> {
               valIva = formatarMoeda.format(calIva);
             }
           }
-        }else if(widget.combustivel == 'Eléctrico'){
-
-            calDireito = calCifMetical * 0.20;
+        } else if (widget.combustivel == 'Eléctrico') {
+          calDireito = calCifMetical * 0.20;
           valDireitos = formatarMoeda.format(calDireito);
 
           //*ICE
@@ -374,11 +376,8 @@ class _CalculosPageState extends State<CalculosPage> {
           //*IVA
           calIva = (calCifMetical + calDireito! + calIce!) * 0.17;
           valIva = formatarMoeda.format(calIva);
-
-
-          }else{
-
-            calDireito = calCifMetical * 0.20;
+        } else {
+          calDireito = calCifMetical * 0.20;
           valDireitos = formatarMoeda.format(calDireito);
 
           //*ICE
@@ -388,22 +387,12 @@ class _CalculosPageState extends State<CalculosPage> {
           //*IVA
           calIva = (calCifMetical + calDireito! + calIce!) * 0.17;
           valIva = formatarMoeda.format(calIva);
-
-          }
-
-
-
-
-
-
-
+        }
       }
 
       //* Transporte de Mercadoria e outros
       //* >===========================================================================================================================
-      if (widget.tipo == 'Truck' ||
-          widget.tipo == 'Pick up' ||
-          widget.tipo == 'Tractor') {
+      if (widget.tipo == 'Truck' || widget.tipo == 'Pick up') {
         if (widget.combustivel == 'Diesel') {
           if (widget.tipo == 'Truck' && widget.maxcap == '-') {
             //*Direitos
