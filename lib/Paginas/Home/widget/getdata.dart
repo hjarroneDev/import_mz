@@ -51,215 +51,208 @@ class _GetDataState extends State<GetData> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Row(
+        Column(
+          //crossAxisAlignment: CrossAxisAlignment.start,
+          children: const [
+            Text(
+              'CIF USD..................',
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.black54,
+              ),
+            ),
+            SizedBox(
+              height: 3,
+            ),
+            Text(
+              'Tipo de Veículo.....',
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.black54,
+              ),
+            ),
+            SizedBox(
+              height: 3,
+            ),
+            Text(
+              'Ano de Fabrico.....',
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.black54,
+              ),
+            ),
+            SizedBox(
+              height: 3,
+            ),
+            Text(
+              'Cc do Motor..........',
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.black54,
+              ),
+            ),
+            SizedBox(
+              height: 3,
+            ),
+            Text(
+              'Combustivel..........',
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.black54,
+              ),
+            ),
+            SizedBox(
+              height: 3,
+            ),
+            Text(
+              'Assentos...............',
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.black54,
+              ),
+            ),
+            SizedBox(
+              height: 3,
+            ),
+            Text(
+              'Portas....................',
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.black54,
+              ),
+            ),
+            SizedBox(
+              height: 3,
+            ),
+            Text(
+              'Peso Bruto............',
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.black54,
+              ),
+            ),
+            SizedBox(
+              height: 3,
+            ),
+            Text(
+              'Referência.............',
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.black54,
+              ),
+            ),
+            SizedBox(
+              height: 3,
+            ),
+          ],
+        ),
+        const SizedBox(
+          width: 30,
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Column(
-              
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                Text(
-                  'CIF USD..................',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.black54,
-                  ),
-                ),
-                SizedBox(
-                  height: 3,
-                ),
-                Text(
-                  'Tipo de Veículo.....',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.black54,
-                  ),
-                ),
-                SizedBox(
-                  height: 3,
-                ),
-                Text(
-                  'Ano de Fabrico.....',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.black54,
-                  ),
-                ),
-                SizedBox(
-                  height: 3,
-                ),
-                Text(
-                  'Cc do Motor..........',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.black54,
-                  ),
-                ),
-                SizedBox(
-                  height: 3,
-                ),
-                Text(
-                  'Combustivel..........',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.black54,
-                  ),
-                ),
-                SizedBox(
-                  height: 3,
-                ),
-                Text(
-                  'Assentos...............',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.black54,
-                  ),
-                ),
-                SizedBox(
-                  height: 3,
-                ),
-                Text(
-                  'Portas....................',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.black54,
-                  ),
-                ),
-                SizedBox(
-                  height: 3,
-                ),
-                SizedBox(
-                  height: 3,
-                ),
-                Text(
-                  'Peso Bruto............',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.black54,
-                  ),
-                ),
-                SizedBox(
-                  height: 3,
-                ),
-                Text(
-                  'Referência.............',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.black54,
-                  ),
-                ),
-                SizedBox(
-                  height: 3,
-                ),
-              ],
+            Text(
+              "${widget.cif}.00",
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+                color: Colors.black54,
+              ),
             ),
             const SizedBox(
-              width: 30,
+              height: 3,
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "${widget.cif}.00",
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                    color: Colors.black54,
-                  ),
-                ),
-                const SizedBox(
-                  height: 3,
-                ),
-                Text(
-                  widget.tipo,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                    color: Colors.black54,
-                  ),
-                ),
-                const SizedBox(
-                  height: 3,
-                ),
-                Text(
-                  widget.ano,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                    color: Colors.black54,
-                  ),
-                ),
-                const SizedBox(
-                  height: 3,
-                ),
-                Text(
-                  widget.motorCc,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                    color: Colors.black54,
-                  ),
-                ),
-                const SizedBox(
-                  height: 3,
-                ),
-                Text(
-                  widget.combustivel,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                    color: Colors.black54,
-                  ),
-                ),
-                const SizedBox(
-                  height: 3,
-                ),
-                Text(
-                  (widget.assentos).toString(),
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                    color: Colors.black54,
-                  ),
-                ),
-                const SizedBox(
-                  height: 3,
-                ),
-                Text(
-                  widget.portas,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                    color: Colors.black54,
-                  ),
-                ),
-                const SizedBox(
-                  height: 3,
-                ),
-                Text(
-                  pesoBruto!,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                    color: Colors.black54,
-                  ),
-                ),
-                const SizedBox(
-                  height: 3,
-                ),
-                Text(
-                  widget.referencia,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                    color: Colors.black54,
-                  ),
-                ),
-                const SizedBox(
-                  height: 3,
-                ),
-              ],
+            Text(
+              widget.tipo,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+                color: Colors.black54,
+              ),
+            ),
+            const SizedBox(
+              height: 3,
+            ),
+            Text(
+              widget.ano,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+                color: Colors.black54,
+              ),
+            ),
+            const SizedBox(
+              height: 3,
+            ),
+            Text(
+              widget.motorCc,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+                color: Colors.black54,
+              ),
+            ),
+            const SizedBox(
+              height: 3,
+            ),
+            Text(
+              widget.combustivel,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+                color: Colors.black54,
+              ),
+            ),
+            const SizedBox(
+              height: 3,
+            ),
+            Text(
+              (widget.assentos).toString(),
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+                color: Colors.black54,
+              ),
+            ),
+            const SizedBox(
+              height: 3,
+            ),
+            Text(
+              widget.portas,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+                color: Colors.black54,
+              ),
+            ),
+            const SizedBox(
+              height: 3,
+            ),
+            Text(
+              pesoBruto!,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+                color: Colors.black54,
+              ),
+            ),
+            const SizedBox(
+              height: 3,
+            ),
+            Text(
+              widget.referencia,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+                color: Colors.black54,
+              ),
+            ),
+            const SizedBox(
+              height: 3,
             ),
           ],
         ),

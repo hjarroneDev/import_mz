@@ -218,9 +218,11 @@ class _CustosState extends State<Custos> {
   Widget build(BuildContext context) {
     final screamSizeWidth = MediaQuery.of(context).size.width;
     return Padding(
-      padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
+      padding: const EdgeInsets.only(left: 10, right: 10, 
+      ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           (screamSizeWidth > 890)
               ? Row(
@@ -637,10 +639,12 @@ class _CustosState extends State<Custos> {
                   : (screamSizeWidth < 1310 && screamSizeWidth > 890)
                       ? Padding(
                           padding: const EdgeInsets.only(
-                            top: 80,
+                            top: 50,
                           ),
-                          child: Expanded(
-                            child: Column(
+                          child: SizedBox(
+                            height: 457,
+                            child: ListView(
+                              shrinkWrap: true,
                               children: [
                                 Row(
                                   mainAxisAlignment:
@@ -691,58 +695,59 @@ class _CustosState extends State<Custos> {
                                   ],
                                 ),
                                 const SizedBox(
-                                  height: 20,
+                                  height: 50,
                                 ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Visibility(
-                                      visible: visivel,
-                                      child: CalculosPage(
-                                        ano: ano,
-                                        assentos: assentos,
-                                        cif: cif,
-                                        combustivel: combustivel,
-                                        fob: fob,
-                                        motorCc: motorCc,
-                                        peso: peso,
-                                        maxcap: maxcap,
-                                        portas: portas,
-                                        tipo: tipo,
-                                        cambio: cambio,
-                                      ),
-                                    ),
-                                  ],
+                                Visibility(
+                                  visible: visivel,
+                                  child: CalculosPage(
+                                    ano: ano,
+                                    assentos: assentos,
+                                    cif: cif,
+                                    combustivel: combustivel,
+                                    fob: fob,
+                                    motorCc: motorCc,
+                                    peso: peso,
+                                    maxcap: maxcap,
+                                    portas: portas,
+                                    tipo: tipo,
+                                    cambio: cambio,
+                                  ),
                                 ),
                               ],
                             ),
                           ),
                         )
                       : Padding(
-                          padding: const EdgeInsets.only(top: 50),
-                          child: Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                          padding: const EdgeInsets.only(top: 25),
+                          child: SizedBox(
+                            height: 400,
+                            child: ListView(
+                              shrinkWrap: true,
                               children: [
-                                SizedBox(
-                                  width: 400,
-                                  child: Text(
-                                    carname,
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20,
-                                      color: Colors.black54,
+                                Center(
+                                  child: Container(
+                                    width: 650,
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      carname,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20,
+                                        color: Colors.black54,
+                                      ),
                                     ),
                                   ),
                                 ),
                                 const SizedBox(
                                   height: 10,
                                 ),
-                                ImageView(
-                                  imageLink: imageLink,
+                                Center(
+                                  child: ImageView(
+                                    imageLink: imageLink,
+                                  ),
                                 ),
                                 const SizedBox(
-                                  height: 30,
+                                  height: 15,
                                 ),
                                 Visibility(
                                   visible: visivel,
@@ -762,7 +767,7 @@ class _CustosState extends State<Custos> {
                                   ),
                                 ),
                                 const SizedBox(
-                                  height: 20,
+                                  height: 50,
                                 ),
                                 Visibility(
                                   visible: visivel,
