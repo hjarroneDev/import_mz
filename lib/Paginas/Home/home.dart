@@ -15,6 +15,8 @@ class _HomeScreanState extends State<HomeScrean> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    final screamSizeWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       body: Container(
         height: size.height,
@@ -24,57 +26,108 @@ class _HomeScreanState extends State<HomeScrean> {
               image: AssetImage("assets/images/defult.png"), fit: BoxFit.cover),
         ),
         child: Center(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 10),
-                    child: Row(
-                      children: [
-                        Text(
-                          "Import",
-                          style: GoogleFonts.roboto(
-                            textStyle: TextStyle(
-                              fontSize: 23,
+          child: SafeArea(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                (screamSizeWidth > 600)
+                    ? Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Row(
+                              children: [
+                                Text(
+                                  "Import",
+                                  style: GoogleFonts.roboto(
+                                    textStyle: TextStyle(
+                                      fontSize: 23,
+                                      color: Colors.teal.shade200,
+                                      fontWeight: FontWeight.bold,
+                                      decoration: TextDecoration.underline,
+                                    ),
+                                  ),
+                                ),
+                                Text(
+                                  "Moz",
+                                  style: GoogleFonts.aBeeZee(
+                                    textStyle: TextStyle(
+                                      fontSize: 28,
+                                      color: Colors.yellow.shade800,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 1),
+                                  child: Icon(
+                                    Icons.directions_car,
+                                    size: 30,
+                                    color: Colors.teal.shade200,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const Spacer(),
+                          const Menu(),
+                        ],
+                      )
+                    : Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Row(
+                              children: [
+                                Text(
+                                  "Import",
+                                  style: GoogleFonts.roboto(
+                                    textStyle: TextStyle(
+                                      fontSize: 23,
+                                      color: Colors.teal.shade200,
+                                      fontWeight: FontWeight.bold,
+                                      decoration: TextDecoration.underline,
+                                    ),
+                                  ),
+                                ),
+                                Text(
+                                  "Moz",
+                                  style: GoogleFonts.aBeeZee(
+                                    textStyle: TextStyle(
+                                      fontSize: 28,
+                                      color: Colors.yellow.shade800,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 1),
+                                  child: Icon(
+                                    Icons.directions_car,
+                                    size: 30,
+                                    color: Colors.teal.shade200,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const Spacer(),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 4),
+                            child: Icon(
+                              Icons.menu,
+                              size: 40,
                               color: Colors.teal.shade200,
-                              fontWeight: FontWeight.bold,
-                              decoration: TextDecoration.underline,
                             ),
                           ),
-                        ),
-                        Text(
-                          "Moz",
-                          style: GoogleFonts.aBeeZee(
-                            textStyle: TextStyle(
-                              fontSize: 28,
-                              color: Colors.yellow.shade800,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 1),
-                          child: Icon(
-                            Icons.directions_car,
-                            size: 30,
-                            color: Colors.teal.shade200,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const Spacer(),
-                  
-                  const Menu(),
-
-
-                ],
-              ),
-              
-              const Custos(),
-            ],
+                        ],
+                      ),
+                const SizedBox(
+                  height: 10,
+                ),
+                const Custos(),
+              ],
+            ),
           ),
         ),
       ),
