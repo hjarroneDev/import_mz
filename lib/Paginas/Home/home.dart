@@ -112,29 +112,25 @@ class _HomeScreanState extends State<HomeScrean> {
                             ),
                           ),
                           const Spacer(),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: InkWell(
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius:
-                                      const BorderRadius.all(Radius.circular(5)),
-                                  color: const Color.fromARGB(255, 176, 209, 206).withOpacity(0.2),
-                                ),
-                                child:  Center(
-                                  child: Icon(
-                                    Icons.menu,
-                                    size: 35,
-                                    color: Colors.teal.shade300,
+                          PopMenu(
+                              menuList: const [
+                                PopupMenuItem(
+                                  child: ListTile(
+                                    title: Text('Comparar'),
                                   ),
                                 ),
-                              ),
-                              onTap: (){
-
-                                
-                              },
-                            ),
-                          ),
+                                PopupMenuDivider(),
+                                PopupMenuItem(
+                                  child: ListTile(
+                                    title: Text('Sobre'),
+                                  ),
+                                ),
+                              ],
+                              icon: Icon(
+                                Icons.menu_open_rounded,
+                         
+                                color: Colors.teal.shade300,
+                              )),
                         ],
                       ),
                 const SizedBox(
@@ -145,6 +141,38 @@ class _HomeScreanState extends State<HomeScrean> {
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class PopMenu extends StatelessWidget {
+  final List<PopupMenuEntry> menuList;
+  final Widget? icon;
+
+  const PopMenu({Key? key, required this.menuList, this.icon})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+       alignment: Alignment.center,
+       width: 55,
+       height: 55,
+       margin: const EdgeInsets.all(10),
+  
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.all(Radius.circular(5)),
+        color: const Color.fromARGB(255, 176, 209, 206).withOpacity(0.2),
+      ),
+      child: PopupMenuButton(
+
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+        itemBuilder: ((context) => menuList),
+        icon: icon,
+        iconSize: 40
+        
+        
       ),
     );
   }
