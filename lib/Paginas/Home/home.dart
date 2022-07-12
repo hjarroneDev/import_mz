@@ -29,38 +29,41 @@ class _HomeScreanState extends State<HomeScrean> {
             children: [
               Row(
                 children: [
-                  Row(
-                    children: [
-                      Text(
-                        "Import",
-                        style: GoogleFonts.roboto(
-                          textStyle: TextStyle(
-                            fontSize: 23,
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: Row(
+                      children: [
+                        Text(
+                          "Import",
+                          style: GoogleFonts.roboto(
+                            textStyle: TextStyle(
+                              fontSize: 23,
+                              color: Colors.teal.shade200,
+                              fontWeight: FontWeight.bold,
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
+                        ),
+                        Text(
+                          "Moz",
+                          style: GoogleFonts.aBeeZee(
+                            textStyle: TextStyle(
+                              fontSize: 28,
+                              color: Colors.yellow.shade800,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 1),
+                          child: Icon(
+                            Icons.directions_car,
+                            size: 30,
                             color: Colors.teal.shade200,
-                            fontWeight: FontWeight.bold,
-                            decoration: TextDecoration.underline,
                           ),
                         ),
-                      ),
-                      Text(
-                        "Moz",
-                        style: GoogleFonts.aBeeZee(
-                          textStyle: TextStyle(
-                            fontSize: 28,
-                            color: Colors.yellow.shade800,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 1),
-                        child: Icon(
-                          Icons.directions_car,
-                          size: 30,
-                          color: Colors.teal.shade200,
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                   const Spacer(),
                   
