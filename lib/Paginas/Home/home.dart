@@ -113,11 +113,23 @@ class _HomeScreanState extends State<HomeScrean> {
                           ),
                           const Spacer(),
                           Padding(
-                            padding: const EdgeInsets.only(right: 4),
-                            child: Icon(
-                              Icons.menu,
-                              size: 40,
-                              color: Colors.teal.shade200,
+                            padding: const EdgeInsets.all(8.0),
+                            child: InkWell(
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius:
+                                      const BorderRadius.all(Radius.circular(5)),
+                                  color: const Color.fromARGB(255, 176, 209, 206).withOpacity(0.2),
+                                ),
+                                child:  Center(
+                                  child: Icon(
+                                    Icons.menu,
+                                    size: 35,
+                                    color: Colors.teal.shade300,
+                                  ),
+                                ),
+                              ),
+                              onTap: (){},
                             ),
                           ),
                         ],
