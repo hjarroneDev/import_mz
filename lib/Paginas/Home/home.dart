@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -11,12 +13,37 @@ class HomeScrean extends StatefulWidget {
   State<HomeScrean> createState() => _HomeScreanState();
 }
 
-class _HomeScreanState extends State<HomeScrean> {
+class _HomeScreanState extends State<HomeScrean>
+    with SingleTickerProviderStateMixin {
+  late AnimationController controller;
+  late Animation<double> animation;
+  @override
+  void initState() {
+    super.initState();
+    controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 100),
+    );
+    setRotation(90);
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  void setRotation(int degrees) {
+    final angle = degrees * pi / 180;
+    animation = Tween<double>(begin: 0, end: angle).animate(controller);
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     final screamSizeWidth = MediaQuery.of(context).size.width;
 
+    bool visivel = false;
     return Scaffold(
       body: Container(
         height: size.height,
@@ -27,152 +54,172 @@ class _HomeScreanState extends State<HomeScrean> {
         ),
         child: Center(
           child: SafeArea(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                (screamSizeWidth > 600)
-                    ? Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10),
-                            child: Row(
-                              children: [
-                                Text(
-                                  "Import",
-                                  style: GoogleFonts.roboto(
-                                    textStyle: TextStyle(
-                                      fontSize: 23,
+            child: StatefulBuilder(builder: (context, setState) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  (screamSizeWidth > 600)
+                      ? Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    "Import",
+                                    style: GoogleFonts.roboto(
+                                      textStyle: TextStyle(
+                                        fontSize: 23,
+                                        color: Colors.teal.shade200,
+                                        fontWeight: FontWeight.bold,
+                                        decoration: TextDecoration.underline,
+                                      ),
+                                    ),
+                                  ),
+                                  Text(
+                                    "Moz",
+                                    style: GoogleFonts.aBeeZee(
+                                      textStyle: TextStyle(
+                                        fontSize: 28,
+                                        color: Colors.yellow.shade800,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 1),
+                                    child: Icon(
+                                      Icons.directions_car,
+                                      size: 30,
                                       color: Colors.teal.shade200,
-                                      fontWeight: FontWeight.bold,
-                                      decoration: TextDecoration.underline,
                                     ),
                                   ),
-                                ),
-                                Text(
-                                  "Moz",
-                                  style: GoogleFonts.aBeeZee(
-                                    textStyle: TextStyle(
-                                      fontSize: 28,
-                                      color: Colors.yellow.shade800,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 1),
-                                  child: Icon(
-                                    Icons.directions_car,
-                                    size: 30,
-                                    color: Colors.teal.shade200,
-                                  ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                          const Spacer(),
-                          const Menu(),
-                        ],
-                      )
-                    : Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10),
-                            child: Row(
-                              children: [
-                                Text(
-                                  "Import",
-                                  style: GoogleFonts.roboto(
-                                    textStyle: TextStyle(
-                                      fontSize: 23,
-                                      color: Colors.teal.shade200,
-                                      fontWeight: FontWeight.bold,
-                                      decoration: TextDecoration.underline,
+                            const Spacer(),
+                            const Menu(),
+                          ],
+                        )
+                      : Row(
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  visivel = false;
+                                });
+                               controller.reverse(from: 90);
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 10),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      "Import",
+                                      style: GoogleFonts.roboto(
+                                        textStyle: TextStyle(
+                                          fontSize: 23,
+                                          color: Colors.teal.shade200,
+                                          fontWeight: FontWeight.bold,
+                                          decoration: TextDecoration.underline,
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ),
-                                Text(
-                                  "Moz",
-                                  style: GoogleFonts.aBeeZee(
-                                    textStyle: TextStyle(
-                                      fontSize: 28,
-                                      color: Colors.yellow.shade800,
-                                      fontWeight: FontWeight.bold,
+                                    Text(
+                                      "Moz",
+                                      style: GoogleFonts.aBeeZee(
+                                        textStyle: TextStyle(
+                                          fontSize: 28,
+                                          color: Colors.yellow.shade800,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
                                     ),
-                                  ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(right: 1),
+                                      child: Icon(
+                                        Icons.directions_car,
+                                        size: 30,
+                                        color: Colors.teal.shade200,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 1),
-                                  child: Icon(
-                                    Icons.directions_car,
-                                    size: 30,
-                                    color: Colors.teal.shade200,
-                                  ),
-                                ),
-                              ],
+                              ),
                             ),
-                          ),
-                          const Spacer(),
-                          PopMenu(
-                              menuList: const [
-                                PopupMenuItem(
-                                  child: ListTile(
-                                    title: Text('Comparar'),
+                            const Spacer(),
+                            Visibility(
+                              visible: visivel,
+                              child: const SizedBox(
+                                height: 50,
+                                child: Menu(),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: InkWell(
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(5)),
+                                    color:
+                                        const Color.fromARGB(255, 176, 209, 206)
+                                            .withOpacity(0.3),
+                                  ),
+                                  child: AnimatedBuilder(
+                                    animation: animation,
+                                    child: Icon(
+                                      Icons.menu_open_rounded,
+                                      color: Colors.teal.shade300,
+                                      size: 40,
+                                    ),
+                                    builder: (context, child) =>
+                                        Transform.rotate(
+                                      angle: animation.value,
+                                      child: child,
+                                    ),
                                   ),
                                 ),
-                                PopupMenuDivider(),
-                                PopupMenuItem(
-                                  child: ListTile(
-                                    title: Text('Sobre'),
-                                  ),
-                                ),
-                              ],
-                              icon: Icon(
-                                Icons.menu_open_rounded,
-                         
-                                color: Colors.teal.shade300,
-                              )),
-                        ],
-                      ),
-                const SizedBox(
-                  height: 10,
-                ),
-                const Custos(),
-              ],
-            ),
+                                onTap: () {
+                                  setState(() {
+                                    visivel = !visivel;
+                                  });
+
+                                  if (visivel == false) {
+                                    controller.reverse(from: 90);
+                                  } else {
+                                    controller.forward(from: 0);
+                                  }
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        visivel = false;
+                      });
+                      controller.reverse(from: 90);
+                    },
+                    child: const SizedBox(
+                      height: 10,
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        visivel = false;
+                      });
+                      controller.reverse(from: 90);
+                    },
+                    child: const Custos(),
+                  ),
+                ],
+              );
+            }),
           ),
         ),
-      ),
-    );
-  }
-}
-
-class PopMenu extends StatelessWidget {
-  final List<PopupMenuEntry> menuList;
-  final Widget? icon;
-
-  const PopMenu({Key? key, required this.menuList, this.icon})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-       alignment: Alignment.center,
-       width: 55,
-       height: 55,
-       margin: const EdgeInsets.all(10),
-  
-      decoration: BoxDecoration(
-        borderRadius: const BorderRadius.all(Radius.circular(5)),
-        color: const Color.fromARGB(255, 176, 209, 206).withOpacity(0.2),
-      ),
-      child: PopupMenuButton(
-
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-        itemBuilder: ((context) => menuList),
-        icon: icon,
-        iconSize: 40
-        
-        
       ),
     );
   }
