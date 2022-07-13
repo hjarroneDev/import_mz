@@ -221,13 +221,18 @@ class _CustosState extends State<Custos> {
         padding: const EdgeInsets.only(
           left: 10,
           right: 10,
-  
         ),
         child: Stack(
           children: [
             SingleChildScrollView(
               child: Column(
                 children: [
+                   Visibility(
+                    visible: (islodin)? true: false,
+                    child: const SizedBox(
+                      height: 50,
+                    ),
+                  ),
                   if (islodin == true && linkController.text != '')
                     const Center(
                       child: SizedBox(
@@ -409,6 +414,15 @@ class _CustosState extends State<Custos> {
                                     child: ListView(
                                       shrinkWrap: true,
                                       children: [
+                                        
+                                        Center(
+                                          child: ImageView(
+                                            imageLink: imageLink,
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
                                         Center(
                                           child: Container(
                                             width: 650,
@@ -421,14 +435,6 @@ class _CustosState extends State<Custos> {
                                                 color: Colors.black54,
                                               ),
                                             ),
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
-                                        Center(
-                                          child: ImageView(
-                                            imageLink: imageLink,
                                           ),
                                         ),
                                         const SizedBox(
@@ -476,11 +482,8 @@ class _CustosState extends State<Custos> {
                                 ),
                     ),
                 ],
-                
               ),
-              
             ),
-            
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
