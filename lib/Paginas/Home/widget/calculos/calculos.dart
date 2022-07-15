@@ -1051,10 +1051,7 @@ class _CalculosPageState extends State<CalculosPage> {
                           color: Colors.black54,
                         ),
                       ),
-                      Divider(
-                        color: Colors.black54,
-                        height: 5,
-                      ),
+                     SizedBox(height: 10,),
                       Text(
                         'Total.......................',
                         style: TextStyle(
@@ -1180,12 +1177,9 @@ class _CalculosPageState extends State<CalculosPage> {
                     ),
                   ),
                   const SizedBox(
-                    height: 3,
+                    height: 10,
                   ),
-                  const Divider(
-                    color: Colors.black54,
-                    height: 5,
-                  ),
+                  
                   Text(
                     '${valTotal!} Mt',
                     style: const TextStyle(
