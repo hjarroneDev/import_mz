@@ -83,7 +83,6 @@ class _CalculosPageState extends State<CalculosPage> {
 //*Assentos Maior ou Igaual a 10
     void isIgualeMaior10() {
       if (widget.combustivel == 'Diesel') {
-
         if (widget.assentos <= 39) {
           calDireito = calCifMetical * 0.05;
           valDireitos = formatarMoeda.format(calDireito);
@@ -96,7 +95,6 @@ class _CalculosPageState extends State<CalculosPage> {
           calIva = (calCifMetical + calDireito! + calIce!) * 0.17;
           valIva = formatarMoeda.format(calIva);
         } else {
-
           calDireito = calCifMetical * 0.05;
           valDireitos = formatarMoeda.format(calDireito);
 
@@ -933,7 +931,7 @@ class _CalculosPageState extends State<CalculosPage> {
   @override
   Widget build(BuildContext context) {
     return Column(
-       crossAxisAlignment: CrossAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(
           width: 300,
@@ -946,254 +944,260 @@ class _CalculosPageState extends State<CalculosPage> {
             ),
           ),
         ),
-        const SizedBox(
-          height: 10,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Column(
-             
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                Text(
-                  'Compra e Transporte........................',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.black54,
+        const SizedBox(height: 5,),
+        Padding(
+          padding: const EdgeInsets.all(5),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    ('Compra e Transporte').toUpperCase(),
+                    style: const TextStyle(
+                        fontSize: 15.5,
+                        color: Colors.black54,
+                        fontWeight: FontWeight.bold),
                   ),
-                ),
-                SizedBox(
-                  height: 3,
-                ),
-                Text(
-                  'Direitos Aduaneiros..........................',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.black54,
+                  const SizedBox(
+                    height: 3,
                   ),
-                ),
-                SizedBox(
-                  height: 3,
-                ),
-                Text(
-                  'Imposto de Consumo Especifico....',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.black54,
+                  Column(
+                    
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: const [
+                      Text(
+                        'Direitos Aduaneiros..........',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.black54,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 3,
+                      ),
+                      Text(
+                        'Imp. Consumo Especifico',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.black54,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 3,
+                      ),
+                      Text(
+                        'Imp. Valor Acrescentado.',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.black54,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 3,
+                      ),
+                      Text(
+                        'Serviço Aduaneiro............',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.black54,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 3,
+                      ),
+                      Text(
+                        'Serviço Mcnet...................',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.black54,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 3,
+                      ),
+                      Text(
+                        'INATTER............................',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.black54,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 3,
+                      ),
+                      Text(
+                        'Maputo Car.......................',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.black54,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 3,
+                      ),
+                      Text(
+                        'Kudumba..........................',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.black54,
+                        ),
+                      ),
+                      Text(
+                        'Ordem de Entrega............',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.black54,
+                        ),
+                      ),
+                      Divider(
+                        color: Colors.black54,
+                        height: 5,
+                      ),
+                      Text(
+                        'Total.......................',
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.black54,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ],
                   ),
-                ),
-                SizedBox(
-                  height: 3,
-                ),
-                Text(
-                  'Imposto de valor Acrescentado......',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.black54,
-                  ),
-                ),
-                SizedBox(
-                  height: 3,
-                ),
-                Text(
-                  'Taxa de Serviço Aduaneiro..............',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.black54,
-                  ),
-                ),
-                SizedBox(
-                  height: 3,
-                ),
-                Text(
-                  'Serviço Mcnet...................................',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.black54,
-                  ),
-                ),
-                SizedBox(
-                  height: 3,
-                ),
-                Text(
-                  'INATTER............................................',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.black54,
-                  ),
-                ),
-                SizedBox(
-                  height: 3,
-                ),
-                Text(
-                  'Maputo Car........................................',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.black54,
-                  ),
-                ),
-                SizedBox(
-                  height: 3,
-                ),
-                Text(
-                  'Kudumba...........................................',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.black54,
-                  ),
-                ),
-                Text(
-                  'Ordem de Entrega.............................',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.black54,
-                  ),
-                ),
-                Divider(
-                  color: Colors.black54,
-                  height: 5,
-                ),
-                Text(
-                  'Total....................................',
-                  style: TextStyle(
-                      fontSize: 20,
+                ],
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(
+                    '${valCIF!} Mt',
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
                       color: Colors.black54,
-                      fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Text(
-                  '${valCIF!} Mt',
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                    color: Colors.black54,
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  height: 3,
-                ),
-                Text(
-                  '${valDireitos!} Mt',
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                    color: Colors.black54,
+                  const SizedBox(
+                    height: 3,
                   ),
-                ),
-                const SizedBox(
-                  height: 3,
-                ),
-                Text(
-                  '${valIce!} Mt',
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                    color: Colors.black54,
+                  Text(
+                    '${valDireitos!} Mt',
+                    style: const TextStyle(
+                      //fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      color: Colors.black54,
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  height: 3,
-                ),
-                Text(
-                  '${valIva!} Mt',
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                    color: Colors.black54,
+                  const SizedBox(
+                    height: 3,
                   ),
-                ),
-                const SizedBox(
-                  height: 3,
-                ),
-                Text(
-                  '${valTsa!} Mt',
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                    color: Colors.black54,
+                  Text(
+                    '${valIce!} Mt',
+                    style: const TextStyle(
+                      //fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      color: Colors.black54,
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  height: 3,
-                ),
-                Text(
-                  '${valMCnet!} Mt',
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                    color: Colors.black54,
+                  const SizedBox(
+                    height: 3,
                   ),
-                ),
-                const SizedBox(
-                  height: 3,
-                ),
-                Text(
-                  (valInatter == '-') ? valInatter! : '${valInatter!} Mt',
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                    color: Colors.black54,
+                  Text(
+                    '${valIva!} Mt',
+                    style: const TextStyle(
+                      //fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      color: Colors.black54,
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  height: 3,
-                ),
-                Text(
-                  (valMptCar == '-') ? valMptCar! : '${valMptCar!} Mt',
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                    color: Colors.black54,
+                  const SizedBox(
+                    height: 3,
                   ),
-                ),
-                const SizedBox(
-                  height: 3,
-                ),
-                Text(
-                  '${valKudumba!} Mt',
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                    color: Colors.black54,
+                  Text(
+                    '${valTsa!} Mt',
+                    style: const TextStyle(
+                      //fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      color: Colors.black54,
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  height: 3,
-                ),
-                Text(
-                  '${valOrdemEntrega!} Mt',
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                    color: Colors.black54,
+                  const SizedBox(
+                    height: 3,
                   ),
-                ),
-                const SizedBox(
-                  height: 3,
-                ),
-                const Divider(
-                  color: Colors.black54,
-                  height: 5,
-                ),
-                Text(
-                  '${valTotal!} Mt',
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                    color: Colors.black54,
+                  Text(
+                    '${valMCnet!} Mt',
+                    style: const TextStyle(
+                      //fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      color: Colors.black54,
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ],
+                  const SizedBox(
+                    height: 3,
+                  ),
+                  Text(
+                    (valInatter == '-') ? valInatter! : '${valInatter!} Mt',
+                    style: const TextStyle(
+                      //fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      color: Colors.black54,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 3,
+                  ),
+                  Text(
+                    (valMptCar == '-') ? valMptCar! : '${valMptCar!} Mt',
+                    style: const TextStyle(
+                      //fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      color: Colors.black54,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 3,
+                  ),
+                  Text(
+                    '${valKudumba!} Mt',
+                    style: const TextStyle(
+                      //fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      color: Colors.black54,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 3,
+                  ),
+                  Text(
+                    '${valOrdemEntrega!} Mt',
+                    style: const TextStyle(
+                      //fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      color: Colors.black54,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 3,
+                  ),
+                  const Divider(
+                    color: Colors.black54,
+                    height: 5,
+                  ),
+                  Text(
+                    '${valTotal!} Mt',
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      color: Colors.black54,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ],
     );

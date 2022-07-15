@@ -8,14 +8,14 @@ import 'widget/calculos/calculos.dart';
 import 'widget/getdata.dart';
 import 'widget/image.dart';
 
-class Custos extends StatefulWidget {
-  const Custos({Key? key}) : super(key: key);
+class Resumo extends StatefulWidget {
+  const Resumo({Key? key}) : super(key: key);
 
   @override
-  State<Custos> createState() => _CustosState();
+  State<Resumo> createState() => _ResumoState();
 }
 
-class _CustosState extends State<Custos> {
+class _ResumoState extends State<Resumo> {
   final linkController = TextEditingController();
 
   bool islodin = false;
@@ -227,18 +227,21 @@ class _CustosState extends State<Custos> {
             SingleChildScrollView(
               child: Column(
                 children: [
-                   Visibility(
-                    visible: (islodin)? true: false,
+                  Visibility(
+                    visible: (islodin) ? true : false,
                     child: const SizedBox(
                       height: 50,
                     ),
                   ),
                   if (islodin == true && linkController.text != '')
-                    const Center(
-                      child: SizedBox(
-                        width: 50,
-                        height: 50,
-                        child: CircularProgressIndicator(),
+                    Visibility(
+                      visible: (screamSizeWidth > 600) ? true : false,
+                      child: const Center(
+                        child: SizedBox(
+                          width: 50,
+                          height: 50,
+                          child: CircularProgressIndicator(),
+                        ),
                       ),
                     )
                   else
@@ -255,6 +258,8 @@ class _CustosState extends State<Custos> {
                                       child: Expanded(
                                         child: ImageView(
                                           imageLink: imageLink,
+                                          height: 300,
+                                          width: 460,
                                         ),
                                       ),
                                     ),
@@ -288,7 +293,6 @@ class _CustosState extends State<Custos> {
                                           child: GetData(
                                             ano: ano,
                                             assentos: assentos,
-                                            carname: carname,
                                             cif: cif,
                                             combustivel: combustivel,
                                             fob: fob,
@@ -342,6 +346,8 @@ class _CustosState extends State<Custos> {
                                             SizedBox(
                                               child: ImageView(
                                                 imageLink: imageLink,
+                                                height: 300,
+                                                width: 460,
                                               ),
                                             ),
                                             Column(
@@ -368,7 +374,6 @@ class _CustosState extends State<Custos> {
                                                   child: GetData(
                                                     ano: ano,
                                                     assentos: assentos,
-                                                    carname: carname,
                                                     cif: cif,
                                                     combustivel: combustivel,
                                                     fob: fob,
@@ -407,76 +412,84 @@ class _CustosState extends State<Custos> {
                                     ),
                                   ),
                                 )
-                              : Padding(
-                                  padding: const EdgeInsets.only(top: 90),
-                                  child: SizedBox(
-                                    height: 480,
-                                    child: ListView(
-                                      shrinkWrap: true,
-                                      children: [
-                                        
-                                        Center(
-                                          child: ImageView(
-                                            imageLink: imageLink,
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
-                                        Center(
-                                          child: Container(
-                                            width: 650,
-                                            alignment: Alignment.center,
-                                            child: Text(
-                                              carname,
-                                              style: const TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 20,
-                                                color: Colors.black54,
+                              : Visibility(
+                                  visible: visivel,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 50),
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        FocusScopeNode currentFocus =
+                                            FocusScope.of(context);
+                                        if (!currentFocus.hasPrimaryFocus &&
+                                            currentFocus.focusedChild != null) {
+                                          currentFocus.focusedChild?.unfocus();
+                                        }
+                                      },
+                                      child: SizedBox(
+                                        height: 535,
+                                        child: ListView(
+                                          shrinkWrap: true,
+                                          children: [
+                                            Center(
+                                              child: Container(
+                                                width: 680,
+                                                alignment: Alignment.center,
+                                                child: const Text(
+                                                  "HJARRONE TEST",
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20,
+                                                    color: Colors.black54,
+                                                  ),
+                                                ),
                                               ),
                                             ),
-                                          ),
+                                            const SizedBox(
+                                              height: 5,
+                                            ),
+                                            const Center(
+                                              child: ImageView(
+                                                imageLink:
+                                                    '//image-cdn.beforward.jp/large/202207/3815425/BM343433_9eb106.JPG',
+                                                height: 250,
+                                                width: 350,
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 5,
+                                            ),
+                                            const GetData(
+                                              ano: "2010",
+                                              assentos: 5,
+                                              cif: '555000',
+                                              combustivel: 'Petrol',
+                                              fob: '405000',
+                                              motorCc: "3",
+                                              peso: '1200',
+                                              maxcap: '1200',
+                                              portas: '5',
+                                              referencia: 'HJARRONE',
+                                              tipo: 'SUV',
+                                            ),
+                                            const SizedBox(
+                                              height: 30,
+                                            ),
+                                            const CalculosPage(
+                                              ano: "2010",
+                                              assentos: 5,
+                                              cif: '555000',
+                                              combustivel: 'Petrol',
+                                              fob: '405000',
+                                              motorCc: "3",
+                                              peso: '1200',
+                                              maxcap: '1200',
+                                              portas: '5',
+                                              tipo: 'SUV',
+                                              cambio: '62',
+                                            ),
+                                          ],
                                         ),
-                                        const SizedBox(
-                                          height: 15,
-                                        ),
-                                        Visibility(
-                                          visible: visivel,
-                                          child: GetData(
-                                            ano: ano,
-                                            assentos: assentos,
-                                            carname: carname,
-                                            cif: cif,
-                                            combustivel: combustivel,
-                                            fob: fob,
-                                            motorCc: motorCc,
-                                            peso: peso,
-                                            maxcap: maxcap,
-                                            portas: portas,
-                                            referencia: referencia,
-                                            tipo: tipo,
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 50,
-                                        ),
-                                        Visibility(
-                                          visible: visivel,
-                                          child: CalculosPage(
-                                            ano: ano,
-                                            assentos: assentos,
-                                            cif: cif,
-                                            combustivel: combustivel,
-                                            fob: fob,
-                                            motorCc: motorCc,
-                                            peso: peso,
-                                            maxcap: maxcap,
-                                            portas: portas,
-                                            tipo: tipo,
-                                            cambio: cambio,
-                                          ),
-                                        ),
-                                      ],
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -764,11 +777,24 @@ class _CustosState extends State<Custos> {
                                             ),
                                             child: IconButton(
                                               // Icon to
-                                              icon: Icon(
-                                                Icons.search_sharp,
-                                                size: 25,
-                                                color: Colors.teal.shade300,
-                                              ), // clear text
+                                              icon: (islodin == true)
+                                                  ? Center(
+                                                      child: SizedBox(
+                                                        width: 25,
+                                                        height: 25,
+                                                        child:
+                                                            CircularProgressIndicator(
+                                                          color: Colors
+                                                              .teal.shade300,
+                                                        ),
+                                                      ),
+                                                    )
+                                                  : Icon(
+                                                      Icons.search_sharp,
+                                                      size: 25,
+                                                      color:
+                                                          Colors.teal.shade300,
+                                                    ), // clear text
                                               onPressed: () async {
                                                 if (linkController.text == '' ||
                                                     linkController.text ==
@@ -781,7 +807,30 @@ class _CustosState extends State<Custos> {
                                                     linkController.text
                                                             .substring(0, 24) ==
                                                         'https://www.beforward.jp') {
-                                                  getDesktopWebsiteData();
+                                                  FocusScopeNode currentFocus =
+                                                      FocusScope.of(context);
+                                                  if (!currentFocus
+                                                          .hasPrimaryFocus &&
+                                                      currentFocus
+                                                              .focusedChild !=
+                                                          null) {
+                                                    currentFocus.focusedChild
+                                                        ?.unfocus();
+                                                  }
+                                                  setState(() {
+                                                    visivel = false;
+                                                    islodin = true;
+                                                  });
+                                                  await Future.delayed(
+                                                      const Duration(
+                                                          seconds: 5), () {
+                                                    setState(() {
+                                                      visivel = true;
+                                                      islodin = false;
+
+                                                      linkController.clear();
+                                                    });
+                                                  });
                                                 } else if (linkController
                                                             .text.length >=
                                                         23 &&
