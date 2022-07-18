@@ -59,7 +59,7 @@ class _HomeScreanState extends State<HomeScrean>
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  (screamSizeWidth > 600)
+                  (screamSizeWidth > 408)
                       ? Row(
                           children: [
                             Padding(
