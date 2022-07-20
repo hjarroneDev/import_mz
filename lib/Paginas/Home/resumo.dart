@@ -333,67 +333,258 @@ class _ResumoState extends State<Resumo> {
                           : (screamSizeWidth < 1250 && screamSizeWidth >= 342)
                               ? Padding(
                                   padding: const EdgeInsets.only(
-                                    top: 80,
+                                    top: 50,
                                   ),
                                   child: (screamSizeWidth < 460 &&
                                           screamSizeWidth > 342)
-                                      ? SizedBox(
-                                          height: 560,
-                                          child: ListView(
-                                            shrinkWrap: true,
-                                            children: [
-                                              Wrap(
-                                                children: [
-                                                  Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      SizedBox(
-                                                        child: Wrap(
-                                                          alignment:
-                                                              WrapAlignment
-                                                                  .center,
-                                                          children: [
-                                                            Text(
-                                                              screamSizeWidth
-                                                                  .toString(),
-                                                              style:
-                                                                  const TextStyle(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                fontSize: 20,
-                                                                color: Colors
-                                                                    .black54,
+                                      ? Visibility(
+                                          visible: visivel,
+                                          child: SizedBox(
+                                            height: 535,
+                                            child: ListView(
+                                              shrinkWrap: true,
+                                              children: [
+                                                Wrap(
+                                                  children: [
+                                                    Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        SizedBox(
+                                                          child: Wrap(
+                                                            alignment:
+                                                                WrapAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Text(
+                                                                screamSizeWidth
+                                                                    .toString(),
+                                                                style:
+                                                                    const TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize: 20,
+                                                                  color: Colors
+                                                                      .black54,
+                                                                ),
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .center,
                                                               ),
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                            ),
-                                                          ],
+                                                            ],
+                                                          ),
                                                         ),
-                                                      ),
-                                                      const SizedBox(
-                                                        height: 10,
-                                                      ),
-                                                      const SizedBox(
-                                                        child: ImageView(
-                                                          imageLink:
-                                                              '//image-cdn.beforward.jp/large/202207/3791369/BM324210_7c0076.jpg',
-                                                          height: 210,
-                                                          width: 400,
+                                                        const SizedBox(
+                                                          height: 10,
                                                         ),
+                                                        const SizedBox(
+                                                          child: ImageView(
+                                                            imageLink:
+                                                                '//image-cdn.beforward.jp/large/202207/3791369/BM324210_7c0076.jpg',
+                                                            height: 210,
+                                                            width: 400,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    const Padding(
+                                                      padding: EdgeInsets.only(
+                                                          top: 10,
+                                                          left: 20,
+                                                          right: 20),
+                                                      child: GetData(
+                                                        ano: "2010",
+                                                        assentos: 5,
+                                                        cif: '4709',
+                                                        combustivel: 'Petrol',
+                                                        fob: '3160',
+                                                        motorCc: "1300",
+                                                        peso: '600',
+                                                        maxcap: '600',
+                                                        portas: '5',
+                                                        referencia: 'BM324210',
+                                                        tipo: 'Hatchback',
                                                       ),
-                                                    ],
-                                                  ),
+                                                    ),
+                                                    const Padding(
+                                                      padding: EdgeInsets.only(
+                                                        top: 20,
+                                                        //left: 10,
+                                                        //right: 10
+                                                      ),
+                                                      child: CalculosPage(
+                                                        ano: "2013",
+                                                        assentos: 6,
+                                                        cif: '4709',
+                                                        combustivel: 'Petrol',
+                                                        fob: '3160',
+                                                        motorCc: "1300",
+                                                        peso: '1200',
+                                                        maxcap: '1200',
+                                                        portas: '5',
+                                                        tipo: 'Hatchback',
+                                                        cambio: '63',
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        )
+                                      : (screamSizeWidth <= 800 &&
+                                              screamSizeWidth > 461)
+                                          ? Visibility(
+                                              visible: visivel,
+                                              child: Column(
+                                                children: [
                                                   Padding(
                                                     padding:
                                                         const EdgeInsets.only(
-                                                            top: 10,
-                                                            left: 30,
-                                                            right: 30),
-                                                    child: Visibility(
+                                                            bottom: 25),
+                                                    child: Wrap(
+                                                      children: [
+                                                        Text(
+                                                          screamSizeWidth
+                                                              .toString(),
+                                                          style:
+                                                              const TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            fontSize: 20,
+                                                            color:
+                                                                Colors.black54,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    width: 800,
+                                                    child: SingleChildScrollView(
+                                                        scrollDirection:
+                                                      Axis.horizontal,
+                                                        child: Row(
+                                                    children: const [
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsets.all(
+                                                                8.0),
+                                                        child: ImageView(
+                                                          imageLink:
+                                                              '//image-cdn.beforward.jp/large/202207/3791369/BM324210_7c0076.jpg',
+                                                          height: 250,
+                                                          width: 350,
+                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                        width: 10,
+                                                      ),
+                                                      SizedBox(
+                                                        width: 300,
+                                                        child: GetData(
+                                                          ano: "2010",
+                                                          assentos: 5,
+                                                          cif: '4709',
+                                                          combustivel:
+                                                              'Petrol',
+                                                          fob: '3160',
+                                                          motorCc: "1300",
+                                                          peso: '600',
+                                                          maxcap: '600',
+                                                          portas: '5',
+                                                          referencia:
+                                                              'BM324210',
+                                                          tipo: 'Hatchback',
+                                                        ),
+                                                      ),
+                                                    ],
+                                                        ),
+                                                      ),
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 15,
+                                                  ),
+                                                  (screamSizeWidth >= 555)
+                                                      ? const Padding(
+                                                          padding:
+                                                              EdgeInsets.only(
+                                                                  left: 120,
+                                                                  right: 120),
+                                                          child: CalculosPage(
+                                                            ano: "2013",
+                                                            assentos: 6,
+                                                            cif: '4709',
+                                                            combustivel:
+                                                                'Petrol',
+                                                            fob: '3160',
+                                                            motorCc: "1300",
+                                                            peso: '1200',
+                                                            maxcap: '1200',
+                                                            portas: '5',
+                                                            tipo: 'Hatchback',
+                                                            cambio: '63',
+                                                          ),
+                                                        )
+                                                      : const Padding(
+                                                          padding:
+                                                              EdgeInsets.only(
+                                                                  left: 60,
+                                                                  right: 60),
+                                                          child: CalculosPage(
+                                                            ano: "2013",
+                                                            assentos: 6,
+                                                            cif: '4709',
+                                                            combustivel:
+                                                                'Petrol',
+                                                            fob: '3160',
+                                                            motorCc: "1300",
+                                                            peso: '1200',
+                                                            maxcap: '1200',
+                                                            portas: '5',
+                                                            tipo: 'Hatchback',
+                                                            cambio: '63',
+                                                          ),
+                                                        ),
+                                                ],
+                                              ),
+                                            )
+                                          : Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 20),
+                                              child: SizedBox(
+                                                height: 1300,
+                                                width: 900,
+                                                child: GridView(
+                                                  shrinkWrap: true,
+                                                  gridDelegate:
+                                                      const SliverGridDelegateWithFixedCrossAxisCount(
+                                                    crossAxisCount: 2,
+                                                  ),
+                                                  scrollDirection:
+                                                      Axis.horizontal,
+                                                  children: [
+                                                    const ImageView(
+                                                      imageLink:
+                                                          '//image-cdn.beforward.jp/large/202207/3791369/BM324210_7c0076.jpg',
+                                                      height: 250,
+                                                      width: 350,
+                                                    ),
+                                                    SizedBox(
+                                                      child: Text(
+                                                        screamSizeWidth
+                                                            .toString(),
+                                                        style: const TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 20,
+                                                          color: Colors.black54,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Visibility(
                                                       visible: visivel,
                                                       child: const GetData(
                                                         ano: "2010",
@@ -409,210 +600,6 @@ class _ResumoState extends State<Resumo> {
                                                         tipo: 'Hatchback',
                                                       ),
                                                     ),
-                                                  ),
-                                                  Visibility(
-                                                    visible: visivel,
-                                                    child: const Padding(
-                                                      padding: EdgeInsets.only(
-                                                          top: 20,
-                                                          left: 30,
-                                                          right: 30),
-                                                      child: CalculosPage(
-                                                        ano: "2013",
-                                                        assentos: 6,
-                                                        cif: '4709',
-                                                        combustivel: 'Petrol',
-                                                        fob: '3160',
-                                                        motorCc: "1300",
-                                                        peso: '1200',
-                                                        maxcap: '1200',
-                                                        portas: '5',
-                                                        tipo: 'Hatchback',
-                                                        cambio: '63',
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        )
-                                      : (screamSizeWidth <= 800 &&
-                                              screamSizeWidth > 461)
-                                          ? Column(
-                                            children: [
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .center,
-                                                children: [
-                                                  Column(
-                                                    children: [
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .only(
-                                                                bottom: 25),
-                                                        child: SizedBox(
-                                                          width: 300,
-                                                          child: Text(
-                                                            screamSizeWidth
-                                                                .toString(),
-                                                            style:
-                                                                const TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              fontSize: 20,
-                                                              color: Colors
-                                                                  .black54,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      const Padding(
-                                                        padding:
-                                                            EdgeInsets.all(
-                                                                8.0),
-                                                        child: ImageView(
-                                                          imageLink:
-                                                              '//image-cdn.beforward.jp/large/202207/3791369/BM324210_7c0076.jpg',
-                                                          height: 250,
-                                                          width: 350,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  const SizedBox(
-                                                    width: 25,
-                                                  ),
-                                                  Visibility(
-                                                    visible: visivel,
-                                                    child: const GetData(
-                                                      ano: "2010",
-                                                      assentos: 5,
-                                                      cif: '4709',
-                                                      combustivel: 'Petrol',
-                                                      fob: '3160',
-                                                      motorCc: "1300",
-                                                      peso: '600',
-                                                      maxcap: '600',
-                                                      portas: '5',
-                                                      referencia:
-                                                          'BM324210',
-                                                      tipo: 'Hatchback',
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              const SizedBox(
-                                                height: 15,
-                                              ),
-                                              Visibility(
-                                                visible: visivel,
-                                                child: (screamSizeWidth >=
-                                                        555)
-                                                    ? const Padding(
-                                                        padding:
-                                                            EdgeInsets.only(
-                                                                left: 120,
-                                                                right: 120),
-                                                        child: CalculosPage(
-                                                          ano: "2013",
-                                                          assentos: 6,
-                                                          cif: '4709',
-                                                          combustivel:
-                                                              'Petrol',
-                                                          fob: '3160',
-                                                          motorCc: "1300",
-                                                          peso: '1200',
-                                                          maxcap: '1200',
-                                                          portas: '5',
-                                                          tipo: 'Hatchback',
-                                                          cambio: '63',
-                                                        ),
-                                                      )
-                                                    : const Padding(
-                                                        padding:
-                                                            EdgeInsets.only(
-                                                                left: 60,
-                                                                right: 60),
-                                                        child: CalculosPage(
-                                                          ano: "2013",
-                                                          assentos: 6,
-                                                          cif: '4709',
-                                                          combustivel:
-                                                              'Petrol',
-                                                          fob: '3160',
-                                                          motorCc: "1300",
-                                                          peso: '1200',
-                                                          maxcap: '1200',
-                                                          portas: '5',
-                                                          tipo: 'Hatchback',
-                                                          cambio: '63',
-                                                        ),
-                                                      ),
-                                              ),
-                                            ],
-                                          )
-                                          : Padding(
-                                              padding: const EdgeInsets.only(
-                                                  top: 20),
-                                              child: SizedBox(
-                                                height: 1300,
-                                                width: 900,
-                                            
-                                                child: GridView(
-                                                  shrinkWrap: true, 
-                                                  gridDelegate:
-                                                      const SliverGridDelegateWithFixedCrossAxisCount(
-                                                    crossAxisCount: 2,
-                                                  
-                                                  ),
-                                                  scrollDirection: Axis.horizontal,
-                                                  children: [
-                                                    const ImageView(
-                                                      imageLink:
-                                                          '//image-cdn.beforward.jp/large/202207/3791369/BM324210_7c0076.jpg',
-                                                      height: 250,
-                                                      width: 350,
-                                                    ),
-                                                    
-                                                    SizedBox(                                                     
-                                                      child: Text(
-                                                        screamSizeWidth
-                                                            .toString(),
-                                                        style:
-                                                            const TextStyle(
-                                                          fontWeight:
-                                                              FontWeight
-                                                                  .bold,
-                                                          fontSize: 20,
-                                                          color: Colors
-                                                              .black54,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                   
-                                                    Visibility(
-                                                      visible: visivel,
-                                                      child: const GetData(
-                                                        ano: "2010",
-                                                        assentos: 5,
-                                                        cif: '4709',
-                                                        combustivel:
-                                                            'Petrol',
-                                                        fob: '3160',
-                                                        motorCc: "1300",
-                                                        peso: '600',
-                                                        maxcap: '600',
-                                                        portas: '5',
-                                                        referencia:
-                                                            'BM324210',
-                                                        tipo: 'Hatchback',
-                                                      ),
-                                                    ),
-                                                    
                                                     Visibility(
                                                       visible: visivel,
                                                       child: const CalculosPage(
